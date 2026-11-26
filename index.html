@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena Eventos | Estrutura para festas e confraternizações em Porto Seguro, Arraial d'Ajuda e Trancoso</title>
+<meta name="description" content="Som, iluminação, palco, tendas, painel de LED e brigadista com equipamento próprio e equipe local. Festas de fim de ano, confraternizações e eventos no seu espaço.">
+<meta property="og:title" content="Arena Eventos | Estrutura para sua festa de fim de ano">
+<meta property="og:description" content="Estrutura completa e equipe local em Porto Seguro, Arraial d'Ajuda e Trancoso.">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Google Tag Manager (mesmo contêiner da LP de casamento — confira o ID) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-AW183306');</script>
+
+<script>
+  /* abertura: só liga com movimento; se os efeitos não subirem em 3,5 s, a página aparece normal */
+  (function(){var d=document.documentElement;if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('abertura-on');
+  setTimeout(function(){if(!window.__efeitos){d.classList.remove('abertura-on');d.classList.add('abertura-fim')}},3500)})();
+</script>
+<style>.abertura{display:none}.abertura-on .abertura{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#000}</style>
+<link rel="stylesheet" href="efeitos.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --noite:#000000;
+  --noite-2:#141414;
+  --sal:#FFFFFF;
+  --tinta:#0A0A0A;
+  --ambar:#F2C230;
+  --ouro-metal:linear-gradient(135deg,#FFE58A 0%,#F2C230 32%,#D9A21B 58%,#FFE27A 82%,#E8B226 100%);
+  --espuma:#BDBDBD;
+  --linha-escura:rgba(255,255,255,.16);
+  --linha-clara:rgba(0,0,0,.14);
+  --display:'Unbounded',system-ui,sans-serif;
+  --texto:'Instrument Sans',system-ui,sans-serif;
+  --larg:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{min-width:0}
+html,body{overflow-x:hidden;max-width:100%}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+*{hyphens:manual;-webkit-hyphens:manual}
+h1,h2,h3,p,span,a,li,label,legend{word-break:normal;overflow-wrap:normal}
+html{scroll-behavior:smooth}
+body{font-family:var(--texto);font-size:1.0625rem;line-height:1.6;color:var(--tinta);background:var(--sal);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--larg);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
+.lead{font-size:1.1875rem;max-width:56ch}
+
+/* Botões */
+.btn{transition:background-position .4s ease,transform .15s ease,box-shadow .15s ease;display:inline-flex;align-items:center;gap:.5em;font-family:var(--texto);font-weight:600;font-size:1.0625rem;text-decoration:none;border:0;cursor:pointer;padding:16px 28px;border-radius:999px;background:var(--ouro-metal);background-size:200% 100%;background-position:0 0;color:var(--tinta);transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{background-position:100% 0;transform:translateY(-1px);box-shadow:0 6px 24px rgba(242,194,48,.35)}
+.btn-ghost{background:transparent!important;color:var(--sal);box-shadow:inset 0 0 0 2px var(--linha-escura)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--espuma)}
+
+/* ---------- HERO com treliça de refletores ---------- */
+.hero{background:var(--noite);color:var(--sal);position:relative;overflow:hidden;padding-bottom:88px;min-height:min(92vh,860px);display:flex;flex-direction:column}
+.hero>.wrap{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;width:100%}
+.hero-foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,#000 8%,rgba(0,0,0,.72) 45%,rgba(0,0,0,.35) 75%,rgba(0,0,0,.6))}
+.topo{display:flex;justify-content:space-between;align-items:center;padding:20px 0;position:relative;z-index:3}
+.marca{font-family:var(--display);font-weight:800;font-size:1.125rem;text-decoration:none;letter-spacing:.02em}
+.marca img{height:32px;width:auto}
+.topo a.zap{font-weight:600;font-size:.9375rem;text-decoration:none;color:var(--espuma)}
+.topo a.zap:hover{color:var(--sal)}
+
+
+.hero-corpo{margin-top:auto;padding-top:120px}
+.hero h1{font-size:clamp(1.875rem,7.4vw,4.75rem);font-weight:800;max-width:14ch;margin-bottom:28px}
+.hero .lead{color:var(--espuma);margin-bottom:36px}
+.hero .lead strong{color:var(--sal);font-weight:600}
+.acoes{display:flex;flex-wrap:wrap;gap:12px}
+.cidades{margin-top:56px;color:var(--espuma);font-size:.9375rem;display:flex;flex-wrap:wrap;gap:8px 28px}
+.cidades li{list-style:none;display:flex;align-items:center;gap:10px}
+.cidades li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ambar)}
+
+/* ---------- PARA QUEM ---------- */
+.secao{padding:96px 0}
+.publicos{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:2px solid var(--tinta)}
+.publico{padding:28px 28px 8px 0}
+.publico+.publico{padding-left:28px;border-left:1px solid var(--linha-clara)}
+.publico h3{font-size:1.25rem;font-weight:600;margin-bottom:12px}
+.publico p{color:#4A4A4A;max-width:34ch}
+
+/* ---------- CATÁLOGO ---------- */
+.catalogo{background:var(--noite-2);color:var(--sal)}
+.catalogo .lead{color:var(--espuma);margin-top:20px}
+.grupo-titulo{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin:64px 0 0;padding-bottom:16px;border-bottom:2px solid var(--ambar)}
+.grupo-titulo h3{font-size:1.375rem;font-weight:600}
+.grupo-titulo p{color:var(--espuma);font-size:.9375rem}
+.rider{list-style:none}
+.rider li{display:grid;grid-template-columns:200px minmax(150px,1fr) 2fr 1.3fr;gap:28px;padding:24px 0;border-bottom:1px solid var(--linha-escura);align-items:center}
+.rider .foto{width:200px;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:#000}
+.rider .sem-foto{display:grid;place-items:center;border:1px solid var(--linha-escura)}
+.rider .sem-foto svg{width:44px;height:44px}
+.rider .nome{font-family:var(--display);font-size:clamp(1.375rem,2.6vw,1.875rem);font-weight:600}
+.rider .desc{color:#E6E6E6;max-width:48ch}
+.rider .uso{color:var(--espuma);font-size:.9375rem}
+.rider .uso b{display:block;color:var(--ambar);font-weight:600;font-size:.875rem;margin-bottom:2px}
+
+/* ---------- FIM DE ANO ---------- */
+.dezembro{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.calendario{background:var(--noite);color:var(--sal);border-radius:20px;padding:32px}
+.calendario h3{font-size:1.125rem;font-weight:600;margin-bottom:6px}
+.calendario .dica{color:var(--espuma);font-size:.9375rem;margin-bottom:18px}
+.campo.destaque input{border-color:var(--ambar);box-shadow:0 0 0 3px rgba(242,194,48,.3)}
+.dias{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;font-size:.875rem;text-align:center}
+.dias span,.dias button{aspect-ratio:1;display:grid;place-items:center;border-radius:8px;color:var(--espuma)}
+.dias button{font:inherit;font-size:.9375rem;background:transparent;border:1px solid var(--linha-escura);cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .15s}
+.dias button:hover{border-color:var(--ambar);color:var(--sal);transform:translateY(-1px)}
+.dias button:disabled{opacity:.3;cursor:not-allowed;transform:none;border-color:transparent}
+.dias button.escolhido{outline:2px solid var(--sal);outline-offset:2px}
+.dias .sem{font-weight:600;color:#8A8A8A;aspect-ratio:auto;padding-bottom:4px}
+.dias .cheio{background:var(--ouro-metal);border-color:transparent;color:var(--tinta);font-weight:600}
+.dias .vazio{visibility:hidden}
+.legenda{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:.875rem;color:var(--espuma)}
+.legenda i{width:14px;height:14px;border-radius:4px;background:var(--ouro-metal);flex:none;display:inline-block}
+
+.galeria{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;padding:0 8px}
+.galeria img{width:100%;height:420px;object-fit:cover;border-radius:8px}
+
+/* ---------- DEPOIMENTOS ---------- */
+.depo{background:var(--noite);color:var(--sal)}
+.depo .lead{color:var(--espuma);margin-top:20px}
+.depo-lista{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:48px;padding-bottom:12px;scrollbar-width:thin}
+.depo-card{flex:0 0 clamp(240px,28%,300px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px}
+.depo-video{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#141414;border:1px solid var(--linha-escura)}
+.depo-video iframe,.depo-video video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+.depo-play{position:absolute;inset:0;display:grid;place-items:center;width:100%;border:0;cursor:pointer;color:var(--sal);
+  background:radial-gradient(circle at 50% 45%,rgba(242,194,48,.18),transparent 60%),#0d0d0d}
+.depo-play img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.depo-play span{position:relative;width:72px;height:72px;border-radius:50%;background:var(--ouro-metal);display:grid;place-items:center;box-shadow:0 8px 30px rgba(242,194,48,.35);transition:transform .15s}
+.depo-play:hover span{transform:scale(1.06)}
+.depo-play svg{width:26px;height:26px;margin-left:4px}
+.depo-card h3{font-size:1.0625rem;font-weight:600}
+.depo-card p{color:var(--espuma);font-size:.9375rem}
+.depo-nav{display:flex;gap:10px;margin-top:20px}
+.depo-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--linha-escura);background:transparent;color:var(--sal);font-size:1.25rem;cursor:pointer}
+.depo-nav button:hover{border-color:var(--ambar)}
+
+/* ---------- COMO FUNCIONA ---------- */
+.passos{list-style:none;counter-reset:p;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px}
+.passos li{counter-increment:p;position:relative;padding-top:64px}
+.passos li::before{content:counter(p);position:absolute;top:0;left:0;font-family:var(--display);font-weight:800;font-size:2.5rem;color:var(--ambar);-webkit-text-stroke:1px var(--tinta)}
+.passos h3{font-size:1.125rem;font-weight:600;margin-bottom:8px}
+.passos p{color:#4A4A4A}
+
+/* ---------- INSTAGRAM ---------- */
+.insta{background:var(--noite-2);color:var(--sal)}
+.insta-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:56px;align-items:center}
+.insta .arroba{font-family:var(--display);font-weight:600;font-size:clamp(1.25rem,3.4vw,2rem);margin:16px 0 20px}
+.insta .arroba a{text-decoration:none;background:var(--ouro-metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.insta p{color:var(--espuma);max-width:44ch;margin-bottom:32px}
+.insta .btn svg{width:20px;height:20px}
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.feed a{display:block;aspect-ratio:1;overflow:hidden;border-radius:6px}
+.feed img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease,opacity .3s}
+.feed a:hover img{transform:scale(1.05);opacity:.85}
+
+/* ---------- FORMULÁRIO ---------- */
+.orcamento{background:var(--noite);color:var(--sal)}
+.orc-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:64px}
+.orcamento .lead{color:var(--espuma);margin-top:20px}
+.alt-zap{margin-top:32px;color:var(--espuma);font-size:.9375rem}
+.alt-zap a{color:var(--ambar);font-weight:600}
+form{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.campo{display:flex;flex-direction:column;gap:8px}
+.campo.cheia{grid-column:1/-1}
+label,legend{font-weight:600;font-size:.9375rem}
+.opc{font-weight:400;color:var(--espuma)}
+input,select{font:inherit;min-width:0;max-width:100%;-webkit-appearance:none;color:var(--sal);background:var(--noite-2);border:1px solid var(--linha-escura);border-radius:12px;padding:14px 16px;width:100%}
+input::placeholder{color:#8A8A8A}
+input:focus,select:focus{outline:none;border-color:var(--ambar);box-shadow:0 0 0 3px rgba(242,194,48,.25)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--espuma) 50%),linear-gradient(135deg,var(--espuma) 50%,transparent 50%);background-position:calc(100% - 22px) 52%,calc(100% - 16px) 52%;background-size:6px 6px;background-repeat:no-repeat}
+input[type=date]{color-scheme:dark;display:block;min-height:52px}
+fieldset{border:0;grid-column:1/-1}
+legend{margin-bottom:12px}
+.marcar{display:flex;flex-wrap:wrap;gap:10px}
+.marcar label{font-weight:500;cursor:pointer;position:relative}
+.marcar input{position:absolute;opacity:0;width:1px;height:1px}
+.marcar span{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--linha-escura);transition:background .15s,border-color .15s,color .15s}
+.marcar input:checked+span{background:var(--ouro-metal);border-color:var(--ambar);color:var(--tinta)}
+.outros{display:flex;flex-direction:column;gap:8px;margin-top:16px;animation:abreOutros .35s cubic-bezier(.22,1,.36,1)}
+.outros[hidden]{display:none}
+@keyframes abreOutros{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.marcar input:focus-visible+span{outline:3px solid var(--ambar);outline-offset:2px}
+.enviar{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:8px}
+.privacidade{font-size:.8125rem;color:#8A8A8A;max-width:40ch}
+.erro{grid-column:1/-1;color:#FFB4A8;font-weight:500;display:none}
+.erro.ver{display:block}
+.sucesso{display:none;background:var(--noite-2);border:1px solid var(--ambar);border-radius:20px;padding:36px}
+.sucesso.ver{display:block}
+.sucesso h3{font-size:1.5rem;font-weight:600;margin-bottom:12px}
+.sucesso p{color:var(--espuma);margin-bottom:24px}
+
+/* ---------- RODAPÉ ---------- */
+footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espuma);padding:48px 0;font-size:.9375rem}
+.rod{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:center}
+.rod .frase{font-family:var(--display);color:var(--sal);font-size:1.125rem}
+.rod nav{display:flex;gap:24px;flex-wrap:wrap}
+.rod a{text-decoration:none}
+.rod a:hover{color:var(--sal)}
+
+/* ---------- Responsivo ---------- */
+@media (max-width:860px){
+  .secao{padding:72px 0}
+  .publicos{grid-template-columns:1fr}
+  .publico,.publico+.publico{padding:24px 0;border-left:0;border-bottom:1px solid var(--linha-clara)}
+  .rider li{grid-template-columns:1fr;gap:10px;padding:24px 0}
+  .rider .foto{width:100%;aspect-ratio:16/9}
+  .rider .sem-foto{display:none}
+  .galeria{grid-template-columns:1fr 1fr}
+  .galeria img{height:220px}
+  .galeria img:nth-child(2){grid-column:1/-1;order:-1}
+  .hero{min-height:100svh}
+  .insta-grid{grid-template-columns:1fr;gap:36px}
+  .hero-foto{height:62%;object-position:center 60%}
+  .hero::after{background:linear-gradient(to top,#000 42%,rgba(0,0,0,.55) 58%,rgba(0,0,0,.1) 80%,rgba(0,0,0,.55))}
+  .hero-corpo{padding-top:200px}
+  .marca img{height:26px}
+  .wrap{padding:0 20px}
+  .rider .nome{font-size:1.375rem}
+  .dias{gap:4px}
+  .calendario{padding:20px}
+  .btn{padding:15px 24px}
+  .topo a.zap{font-size:.875rem}
+  .dezembro,.orc-grid{grid-template-columns:1fr;gap:40px}
+  .passos{grid-template-columns:1fr;gap:32px}
+  form{grid-template-columns:1fr}
+  .refletores .ref:nth-child(even){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-AW183306" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="abertura" aria-hidden="true"><span class="abertura__brilho"></span><img class="abertura__logo" src="logo-arena.png" alt=""></div>
+
+<header class="hero">
+  <img class="hero-foto" src="img/hero.jpg" alt="Palco com iluminação e público ao pôr do sol em festa estruturada pela Arena" fetchpriority="high">
+  <div class="wrap">
+    <div class="topo">
+      <a class="marca" href="#"><img src="logo-arena.png" alt="Grupo Arena" width="150" height="24"></a>
+      <a class="zap" id="zapTopo" href="#">WhatsApp</a>
+    </div>
+    <div class="hero-corpo">
+      <h1>Sua festa de fim de ano com estrutura impecável.</h1>
+      <p class="lead"><strong>Som, iluminação, palco, tendas, painel de LED e brigadista</strong> com equipamento próprio e equipe local. Para confraternizações de empresa, festas particulares e eventos no seu espaço.</p>
+      <div class="acoes">
+        <a class="btn" href="#orcamento">Pedir orçamento</a>
+        <a class="btn btn-ghost" href="#catalogo">Ver serviços</a>
+      </div>
+      <ul class="cidades" aria-label="Onde atendemos">
+        <li>Porto Seguro</li><li>Arraial d'Ajuda</li><li>Trancoso</li><li>Caraíva e Santo André</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="faixa" aria-hidden="true"><div class="faixa__trilho"><span>Som <i>✦</i> Iluminação <i>✦</i> Palco <i>✦</i> Tendas <i>✦</i> Painel de LED <i>✦</i> Brigadista <i>✦</i> </span><span>Som <i>✦</i> Iluminação <i>✦</i> Palco <i>✦</i> Tendas <i>✦</i> Painel de LED <i>✦</i> Brigadista <i>✦</i> </span><span>Som <i>✦</i> Iluminação <i>✦</i> Palco <i>✦</i> Tendas <i>✦</i> Painel de LED <i>✦</i> Brigadista <i>✦</i> </span></div></div>
+
+<main>
+  <section class="secao" aria-labelledby="t-publico">
+    <div class="wrap">
+      <h2 id="t-publico">Uma estrutura, três tipos de festa.</h2>
+      <div class="publicos">
+        <div class="publico">
+          <h3>Confraternização da empresa</h3>
+          <p>A festa de fim de ano da equipe do jeito certo: som para discurso e pista, luz, tenda e palco. Você cuida dos convidados, a gente cuida do resto.</p>
+        </div>
+        <div class="publico">
+          <h3>Festa em casa ou em família</h3>
+          <p>Aniversário, réveillon, encontro de família. Estrutura dimensionada para o seu número de convidados, tudo resolvido com uma empresa só.</p>
+        </div>
+        <div class="publico">
+          <h3>Eventos no seu espaço</h3>
+          <p>Pousadas, beach clubs, restaurantes e casas de evento que precisam de estrutura sob demanda para as noites de alta temporada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao catalogo" id="catalogo" aria-labelledby="t-catalogo">
+    <div class="wrap">
+      <h2 id="t-catalogo">O que a Arena leva para a sua festa.</h2>
+      <p class="lead">Escolha só o que precisa ou feche o pacote completo. Tudo é dimensionado depois que entendemos o tamanho e o local do evento.</p>
+
+      <div class="grupo-titulo">
+        <h3>Estrutura própria</h3>
+        <p>Equipamento da Arena, operado pela nossa equipe</p>
+      </div>
+      <ul class="rider">
+        <li><img class="foto" src="img/som.jpg" alt="DJ tocando em palco cenográfico com iluminação" loading="lazy"><span class="nome">Som</span><span class="desc">Sistema para música ambiente, pista e microfone para discursos e brindes, com técnico acompanhando o evento.</span><span class="uso"><b>Bom para</b>confraternizações, festas com DJ ou banda</span></li>
+        <li><img class="foto" src="img/iluminacao.jpg" alt="Refletores e efeitos de luz sobre palco à noite" loading="lazy"><span class="nome">Iluminação</span><span class="desc">Luz cênica, de pista e de ambientação, para a festa ter clima depois que o sol se põe.</span><span class="uso"><b>Bom para</b>festas noturnas, áreas externas</span></li>
+        <li><img class="foto" src="img/palco.jpg" alt="Palco com bateria, painel de LED e iluminação montado sob tenda" loading="lazy"><span class="nome">Palco</span><span class="desc">Palco no tamanho certo para banda, DJ, apresentações ou o momento da premiação da equipe.</span><span class="uso"><b>Bom para</b>shows, discursos, premiações</span></li>
+        <li><img class="foto" src="img/tendas.jpg" alt="Tenda montada na praia com bar, mesas e decoração" loading="lazy"><span class="nome">Tendas</span><span class="desc">Cobertura para proteger convidados de sol e chuva, transformando qualquer área aberta em espaço de festa.</span><span class="uso"><b>Bom para</b>quintais, praia, áreas sem cobertura</span></li>
+        <li><img class="foto" src="img/led.jpg" alt="Painel de LED sobre cabine de DJ em festa noturna" loading="lazy"><span class="nome">Painel de LED</span><span class="desc">Telão para vídeos, retrospectiva do ano, identidade da empresa e transmissão ao vivo.</span><span class="uso"><b>Bom para</b>eventos corporativos, retrospectivas</span></li>
+        <li><span class="foto sem-foto" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="18" y="6" width="12" height="36" rx="2" fill="#F2C230"/><rect x="6" y="18" width="36" height="12" rx="2" fill="#F2C230"/></svg></span><span class="nome">Brigadista</span><span class="desc">Profissional de prevenção e primeiros socorros presente durante todo o evento.</span><span class="uso"><b>Bom para</b>eventos maiores, espaços que exigem segurança</span></li>
+      </ul>
+
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-dezembro">
+    <div class="wrap dezembro">
+      <div>
+        <h2 id="t-dezembro">Dezembro é o mês mais disputado do ano.</h2>
+        <p class="lead" style="margin-top:20px">Confraternizações, festas de família e réveillon caem nas mesmas semanas, e a estrutura é reservada por data. Quanto antes você pedir o orçamento, mais opções de dia e de equipamento você tem.</p>
+        <p style="margin-top:32px"><a class="btn" href="#orcamento">Reservar minha data</a></p>
+      </div>
+      <div class="calendario">
+        <h3 id="mesTitulo">Dezembro</h3>
+        <p class="dica">Toque no dia da sua festa para pedir o orçamento.</p>
+        <div class="dias" id="dias"></div>
+        <p class="legenda"><i></i> Datas mais procuradas para festas</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="galeria" aria-label="Estruturas montadas pela Arena">
+    <img src="img/galeria-neon.jpg" alt="Letreiro neon e decoração tropical em festa noturna" loading="lazy">
+    <img src="img/galeria-palco.jpg" alt="Palco iluminado com arcos de refletores e público à noite" loading="lazy">
+    <img src="img/tendas.jpg" alt="Tenda com bar e mesas montada na praia" loading="lazy">
+  </section>
+
+  <section class="secao depo" id="depoimentos" aria-labelledby="t-depo">
+    <div class="wrap">
+      <h2 id="t-depo">Quem já fechou com a Arena.</h2>
+      <p class="lead">Clientes contando, em vídeo, como foi ter a estrutura do evento nas mãos da Arena.</p>
+      <div class="depo-lista" id="depoLista" tabindex="0" aria-label="Depoimentos em vídeo"></div>
+      <div class="depo-nav" aria-hidden="false">
+        <button type="button" id="depoAnt" aria-label="Depoimento anterior">‹</button>
+        <button type="button" id="depoProx" aria-label="Próximo depoimento">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-passos">
+    <div class="wrap">
+      <h2 id="t-passos">Do pedido à festa pronta.</h2>
+      <ol class="passos">
+        <li><h3>Você conta como é a festa</h3><p>Data, local, número de convidados e o que você imagina. Leva dois minutos no formulário.</p></li>
+        <li><h3>Preparamos a proposta</h3><p>Dimensionamos a estrutura para o tamanho e o local do seu evento.</p></li>
+        <li><h3>Cuidamos de tudo no dia</h3><p>Nossa equipe chega antes, deixa tudo pronto, acompanha a festa e recolhe a estrutura no fim.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao insta" aria-labelledby="t-insta">
+    <div class="wrap insta-grid">
+      <div>
+        <h2 id="t-insta">Veja mais eventos no nosso Instagram.</h2>
+        <p class="arroba"><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener">@grupoarenaeventos</a></p>
+        <p>Bastidores e festas que a Arena realizou na região.</p>
+        <a class="btn" id="btnInsta" href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#0A0A0A"/></svg>Seguir no Instagram</a>
+      </div>
+      <div class="feed"><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener" aria-label="Ver no Instagram: Palco ao pôr do sol"><img src="img/hero.jpg" alt="" loading="lazy"></a><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener" aria-label="Ver no Instagram: Painel de LED"><img src="img/led.jpg" alt="" loading="lazy"></a><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener" aria-label="Ver no Instagram: Letreiro neon"><img src="img/galeria-neon.jpg" alt="" loading="lazy"></a><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener" aria-label="Ver no Instagram: Tenda na praia"><img src="img/tendas.jpg" alt="" loading="lazy"></a><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener" aria-label="Ver no Instagram: Iluminação de palco"><img src="img/iluminacao.jpg" alt="" loading="lazy"></a><a href="https://www.instagram.com/grupoarenaeventos/" target="_blank" rel="noopener" aria-label="Ver no Instagram: Evento na praia"><img src="img/decoracao.jpg" alt="" loading="lazy"></a></div>
+    </div>
+  </section>
+
+  <section class="secao orcamento" id="orcamento" aria-labelledby="t-orc">
+    <div class="wrap orc-grid">
+      <div>
+        <h2 id="t-orc">Peça o orçamento da sua festa.</h2>
+        <p class="lead">Respondemos pelo WhatsApp com uma proposta para o seu evento.</p>
+        <p class="alt-zap">Prefere conversar direto? <a id="zapForm" href="#">Chame no WhatsApp</a></p>
+      </div>
+
+      <div>
+        <form id="form" novalidate>
+          <div class="campo"><label for="nome">Seu nome</label><input id="nome" name="nome" autocomplete="name" required></div>
+          <div class="campo"><label for="telefone">WhatsApp</label><input id="telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(73) 99999-9999" required></div>
+          <div class="campo"><label for="tipo">Tipo de festa</label>
+            <select id="tipo" name="tipo" required>
+              <option value="">Escolha uma opção</option>
+              <option>Confraternização de empresa</option>
+              <option>Festa particular ou em família</option>
+              <option>Réveillon</option>
+              <option>Evento no meu estabelecimento</option>
+              <option>Outro</option>
+            </select></div>
+          <div class="campo"><label for="data">Data da festa</label><input id="data" name="data" type="date" required></div>
+          <div class="campo"><label for="convidados">Número de convidados</label>
+            <select id="convidados" name="convidados" required>
+              <option value="">Escolha uma faixa</option>
+              <option>Até 50</option><option>51 a 100</option><option>101 a 200</option><option>201 a 500</option><option>Mais de 500</option>
+            </select></div>
+          <div class="campo"><label for="local">Cidade</label>
+            <select id="local" name="local" required>
+              <option value="">Escolha a cidade</option>
+              <option>Porto Seguro</option><option>Arraial d'Ajuda</option><option>Trancoso</option><option>Caraíva</option><option>Santo André</option><option>Outra</option>
+            </select></div>
+          <div class="campo cheia"><label for="empresa">Empresa ou estabelecimento <span class="opc">(opcional)</span></label><input id="empresa" name="empresa" autocomplete="organization"></div>
+          <fieldset>
+            <legend>O que você precisa? <span class="opc">(marque quantos quiser)</span></legend>
+            <div class="marcar">
+              <label><input type="checkbox" name="servicos" value="Som"><span>Som</span></label>
+              <label><input type="checkbox" name="servicos" value="Iluminação"><span>Iluminação</span></label>
+              <label><input type="checkbox" name="servicos" value="Palco"><span>Palco</span></label>
+              <label><input type="checkbox" name="servicos" value="Tendas"><span>Tendas</span></label>
+              <label><input type="checkbox" name="servicos" value="Painel de LED"><span>Painel de LED</span></label>
+              <label><input type="checkbox" name="servicos" value="Brigadista"><span>Brigadista</span></label>
+              <label><input type="checkbox" name="servicos" value="Outros" id="chkOutros" aria-controls="campoOutros" aria-expanded="false"><span>Outros</span></label>
+              <label><input type="checkbox" name="servicos" value="Ainda não sei"><span>Ainda não sei</span></label>
+            </div>
+            <div class="outros" id="campoOutros" hidden>
+              <label for="outros">Quais outros serviços?</label>
+              <input id="outros" name="outros" maxlength="200" placeholder="Ex.: buffet, fotografia, mesas e cadeiras">
+            </div>
+          </fieldset>
+          <p class="erro" id="erro" role="alert"></p>
+          <div class="enviar">
+            <button class="btn" type="submit" id="botao">Enviar pedido de orçamento</button>
+            <p class="privacidade">Usamos seus dados só para responder este pedido.</p>
+          </div>
+        </form>
+
+        <div class="sucesso" id="sucesso" role="status" tabindex="-1">
+          <h3>Pedido de orçamento enviado.</h3>
+          <p>Nossa equipe vai te chamar no WhatsApp em breve. Se quiser adiantar a conversa, chame agora.</p>
+          <a class="btn" id="zapSucesso" href="#">Abrir WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap rod">
+    <div><img src="logo-arena.png" alt="Grupo Arena" width="130" height="21" style="margin-bottom:12px"><p class="frase">Seu sonho em boas mãos.</p></div>
+    <nav aria-label="Rodapé">
+      <a href="https://instagram.com/grupoarenaeventos" target="_blank" rel="noopener">Instagram</a>
+      <a id="zapRodape" href="#">WhatsApp</a>
+      <a href="/politica-de-privacidade">Política de privacidade</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* ---- WhatsApp com mensagem que identifica a campanha ---- */
+const ZAP = '5573999090909';
+const msgZap = 'Olá! Vim pela página de festas da Arena Eventos e quero um orçamento.';
+const linkZap = 'https://wa.me/' + ZAP + '?text=' + encodeURIComponent(msgZap);
+['zapTopo','zapForm','zapRodape'].forEach(id => { const a = document.getElementById(id); a.href = linkZap; a.target = '_blank'; a.rel = 'noopener'; });
+
+/* ---- Calendário de dezembro clicável: preenche a data do formulário ---- */
+(function(){
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const ano = hoje.getFullYear();
+  document.getElementById('mesTitulo').textContent = 'Dezembro ' + ano;
+  const el = document.getElementById('dias');
+  const nomes = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  'DSTQQSS'.split('').forEach(d => el.insertAdjacentHTML('beforeend', '<span class="sem" aria-hidden="true">' + d + '</span>'));
+  const primeiro = new Date(ano, 11, 1).getDay();
+  for (let i = 0; i < primeiro; i++) el.insertAdjacentHTML('beforeend', '<span class="vazio"></span>');
+  for (let d = 1; d <= 31; d++) {
+    const data = new Date(ano, 11, d);
+    const dow = data.getDay();
+    const cheio = (d >= 5 && d <= 20 && (dow === 5 || dow === 6)) || d === 31;
+    const passou = data < hoje;
+    const iso = ano + '-12-' + String(d).padStart(2,'0');
+    el.insertAdjacentHTML('beforeend', '<button type="button" data-data="' + iso + '"' + (cheio ? ' class="cheio"' : '') + (passou ? ' disabled' : '') +
+      ' aria-label="' + nomes[dow] + ', ' + d + ' de dezembro' + (cheio ? ', data muito procurada' : '') + '">' + d + '</button>');
+  }
+  el.addEventListener('click', e => {
+    const b = e.target.closest('button[data-data]'); if (!b || b.disabled) return;
+    el.querySelectorAll('.escolhido').forEach(x => x.classList.remove('escolhido'));
+    b.classList.add('escolhido');
+    const campo = document.getElementById('data');
+    campo.value = b.dataset.data;
+    const caixa = campo.closest('.campo'); caixa.classList.add('destaque');
+    setTimeout(() => caixa.classList.remove('destaque'), 2500);
+    (window.dataLayer = window.dataLayer || []).push({ event:'calendario_data', data_festa: b.dataset.data });
+    if (window.irPara) window.irPara('#orcamento'); else document.getElementById('orcamento').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    setTimeout(() => document.getElementById('nome').focus({ preventScroll: true }), 600);
+  });
+})();
+
+/* ---- Depoimentos em vídeo ----
+   Para adicionar: copie uma linha e troque os dados.
+   video: caminho de um .mp4 hospedado junto da página (ex.: 'videos/isabel.mp4')  OU
+   drive: ID do arquivo no Google Drive (o arquivo precisa estar compartilhado como "Qualquer pessoa com o link").
+   capa: imagem opcional exibida antes do play (ex.: 'img/capa-isabel.jpg'). */
+const DEPOIMENTOS = [
+  { nome: 'Isabel Gimenez', evento: 'Cliente Arena', drive: '14dSpBjnvkiHRoDKsNB_X0S_4dRKqztQx', capa: '' },
+];
+(function(){
+  const lista = document.getElementById('depoLista');
+  const sec = document.getElementById('depoimentos');
+  if (!DEPOIMENTOS.length) { sec.remove(); return; }
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  lista.innerHTML = DEPOIMENTOS.map((d, i) =>
+    '<article class="depo-card"><div class="depo-video"><button type="button" class="depo-play" data-i="' + i + '" aria-label="Assistir depoimento de ' + esc(d.nome) + '">' +
+    (d.capa ? '<img src="' + esc(d.capa) + '" alt="" loading="lazy">' : '') +
+    '<span><svg viewBox="0 0 24 24" fill="#0A0A0A"><path d="M6 4l14 8-14 8z"/></svg></span></button></div>' +
+    '<div><h3>' + esc(d.nome) + '</h3><p>' + esc(d.evento) + '</p></div></article>').join('');
+  lista.addEventListener('click', e => {
+    const b = e.target.closest('.depo-play'); if (!b) return;
+    const d = DEPOIMENTOS[b.dataset.i]; const box = b.parentElement;
+    if (d.video) box.innerHTML = '<video src="' + esc(d.video) + '" controls autoplay playsinline></video>';
+    else box.innerHTML = '<iframe src="https://drive.google.com/file/d/' + encodeURIComponent(d.drive) + '/preview" allow="autoplay; fullscreen" allowfullscreen title="Depoimento de ' + esc(d.nome) + '"></iframe>';
+    (window.dataLayer = window.dataLayer || []).push({ event:'depoimento_play', depoimento: d.nome });
+  });
+  const passo = () => (lista.querySelector('.depo-card')?.offsetWidth || 280) + 20;
+  document.getElementById('depoAnt').onclick = () => lista.scrollBy({ left: -passo(), behavior: 'smooth' });
+  document.getElementById('depoProx').onclick = () => lista.scrollBy({ left: passo(), behavior: 'smooth' });
+  if (DEPOIMENTOS.length < 4) document.querySelector('.depo-nav').style.display = 'none';
+})();
+
+document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.addEventListener('click', () => (window.dataLayer = window.dataLayer || []).push({ event:'clique_instagram' })));
+
+/* ---- Máscara simples de telefone ---- */
+const tel = document.getElementById('telefone');
+tel.addEventListener('input', () => {
+  let v = tel.value.replace(/\D/g, '').slice(0, 11);
+  if (v.length > 6) v = '(' + v.slice(0,2) + ') ' + v.slice(2, v.length - 4) + '-' + v.slice(-4);
+  else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  tel.value = v;
+});
+
+/* ---- "Outros" abre um campo para a pessoa escrever ---- */
+const chkOutros = document.getElementById('chkOutros');
+const caixaOutros = document.getElementById('campoOutros');
+const campoOutros = document.getElementById('outros');
+chkOutros.addEventListener('change', () => {
+  caixaOutros.hidden = !chkOutros.checked;
+  chkOutros.setAttribute('aria-expanded', chkOutros.checked);
+  if (chkOutros.checked) campoOutros.focus(); else campoOutros.value = '';
+});
+
+/* ---- Envio do formulário para /api/lead (Kommo) ---- */
+const form = document.getElementById('form');
+const erro = document.getElementById('erro');
+const botao = document.getElementById('botao');
+const utm = Object.fromEntries(new URLSearchParams(location.search));
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  erro.classList.remove('ver');
+  const faltando = [...form.querySelectorAll('[required]')].filter(c => !c.value.trim());
+  const digitos = tel.value.replace(/\D/g, '');
+  if (faltando.length) { mostrarErro('Preencha ' + rotulo(faltando[0]) + ' para enviar o pedido.'); faltando[0].focus(); return; }
+  if (digitos.length < 10) { mostrarErro('Digite o WhatsApp com DDD, por exemplo (73) 99999-9999.'); tel.focus(); return; }
+  if (chkOutros.checked && !campoOutros.value.trim()) { mostrarErro('Escreva quais outros serviços você precisa.'); campoOutros.focus(); return; }
+
+  const dados = Object.fromEntries(new FormData(form));
+  dados.servicos = [...form.querySelectorAll('[name=servicos]:checked')].map(c => c.value);
+  dados.telefone = '+55' + digitos;
+  dados.utm = utm;
+  dados.pagina = location.href;
+
+  botao.disabled = true; botao.textContent = 'Enviando…';
+  try {
+    const r = await fetch('/api/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(dados) });
+    if (!r.ok) throw new Error();
+    (window.dataLayer = window.dataLayer || []).push({ event:'lead_festas', tipo_festa: dados.tipo, convidados: dados.convidados });
+    form.style.display = 'none';
+    const s = document.getElementById('sucesso');
+    document.getElementById('zapSucesso').href = 'https://wa.me/' + ZAP + '?text=' + encodeURIComponent('Olá! Sou ' + dados.nome + ', acabei de pedir orçamento pela página de festas (' + dados.tipo + ', ' + dados.convidados + ' convidados).');
+    document.getElementById('zapSucesso').target = '_blank';
+    s.classList.add('ver'); s.focus();
+  } catch {
+    mostrarErro('Não conseguimos enviar agora. Tente de novo ou chame a gente no WhatsApp.');
+    botao.disabled = false; botao.textContent = 'Enviar pedido de orçamento';
+  }
+});
+function mostrarErro(t){ erro.textContent = t; erro.classList.add('ver'); }
+function rotulo(c){ return '"' + document.querySelector('label[for=' + c.id + ']').textContent.trim().toLowerCase() + '"'; }
+</script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="efeitos.js"></script>
+</body>
+</html>

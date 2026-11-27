@@ -173,12 +173,14 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .depo-card p{color:var(--espuma);font-size:.9375rem}
 
 .depo-lista:empty{display:none}
-.coments{margin-top:56px;display:flex;flex-direction:column;gap:20px;overflow:hidden;
+.coments{margin-top:56px;display:flex;flex-direction:column;gap:20px;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.coments-linha{display:flex;gap:20px;width:max-content;animation:desliza var(--dur,70s) linear infinite}
-.coments-linha.volta{animation-direction:reverse}
-.coments:hover .coments-linha{animation-play-state:paused}
-@keyframes desliza{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.coments-linha{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;cursor:grab;user-select:none;-webkit-user-select:none;overscroll-behavior-x:contain;padding:2px 0}
+.coments-linha::-webkit-scrollbar{display:none}
+.coments-linha.arrastando{cursor:grabbing}
+.coments-linha a{-webkit-user-drag:none}
+.coments-dica{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--espuma);font-size:.875rem;margin-top:4px}
+.coments-dica svg{width:18px;height:18px}
 .coment{width:340px;flex:none;background:#111;border:1px solid var(--linha-escura);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:18px;justify-content:space-between}
 .coment blockquote{font-size:1.0625rem;line-height:1.55;color:#EDEDED;position:relative;padding-top:28px}
 .coment blockquote::before{content:"\201C";position:absolute;top:-14px;left:-2px;font-family:var(--display);font-size:3.5rem;line-height:1;background:var(--ouro-metal);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -194,7 +196,7 @@ a.coment-fonte:hover{text-decoration:underline}
 .coment-nome svg{width:15px;height:15px;flex:none}
 .coment-fonte{color:var(--espuma);font-size:.8125rem;display:flex;align-items:center;gap:6px}
 .coment-fonte svg{width:13px;height:13px}
-@media (prefers-reduced-motion:reduce){.coments{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.coments-linha{animation:none}}
+
 
 /* ---------- COMO FUNCIONA ---------- */
 .passos{list-style:none;counter-reset:p;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px}
@@ -600,8 +602,37 @@ const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>
   const box = document.getElementById('coments');
   box.innerHTML = linhas.map((l, i) => {
     const html = l.map(card).join('');
-    return '<div class="coments-linha' + (i ? ' volta' : '') + '" style="--dur:' + (l.length * 11) + 's">' + html + '<div class="coments-copia" aria-hidden="true">' + html + '</div></div>';
-  }).join('');
+    return '<div class="coments-linha" data-dir="' + (i ? -1 : 1) + '" tabindex="0" aria-label="Comentários, arraste para o lado">' + html + '<div class="coments-copia" aria-hidden="true">' + html + '</div></div>';
+  }).join('') + '<p class="coments-dica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>Arraste para ler os comentários</p>';
+  /* rolagem automática + controle da pessoa: arrastar, deslizar o dedo ou usar a roda/trackpad pausa a animação */
+  const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  box.querySelectorAll('.coments-linha').forEach(el => {
+    const dir = +el.dataset.dir; let pausa = 0, pos = 0, arr = null, moveu = false;
+    const metade = () => el.scrollWidth / 2;
+    const segura = (ms = 2500) => { pausa = performance.now() + ms; };
+    requestAnimationFrame(() => { el.scrollLeft = dir < 0 ? metade() - 1 : 1; pos = el.scrollLeft; });
+    const passo = () => {
+      const h = metade();
+      if (!parado && !arr && performance.now() > pausa && h > el.clientWidth) {
+        pos += dir * 0.45; el.scrollLeft = pos;
+      } else pos = el.scrollLeft;
+      if (el.scrollLeft >= h) { el.scrollLeft -= h; pos = el.scrollLeft; }
+      else if (el.scrollLeft < 1) { el.scrollLeft = h - 1; pos = el.scrollLeft; }
+      requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+    el.addEventListener('mouseenter', () => segura(1e9));
+    el.addEventListener('mouseleave', () => segura(800));
+    el.addEventListener('touchstart', () => segura(1e9), { passive: true });
+    el.addEventListener('touchend', () => segura(2500), { passive: true });
+    el.addEventListener('wheel', () => segura(2500), { passive: true });
+    el.addEventListener('focusin', () => segura(1e9));
+    el.addEventListener('focusout', () => segura(800));
+    el.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; arr = { x: e.clientX, s: el.scrollLeft }; moveu = false; el.classList.add('arrastando'); });
+    addEventListener('pointermove', e => { if (!arr) return; const dx = e.clientX - arr.x; if (Math.abs(dx) > 4) moveu = true; el.scrollLeft = arr.s - dx; });
+    addEventListener('pointerup', () => { if (!arr) return; arr = null; el.classList.remove('arrastando'); });
+    el.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
+  });
   box.querySelectorAll('.coments-copia a').forEach(a => a.tabIndex = -1);
   box.addEventListener('click', e => { if (e.target.closest('.coment-fonte[href]')) (window.dataLayer = window.dataLayer || []).push({ event:'clique_comentario_instagram' }); });
 })();

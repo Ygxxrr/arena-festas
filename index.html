@@ -149,8 +149,26 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .legenda{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:.875rem;color:var(--espuma)}
 .legenda i{width:14px;height:14px;border-radius:4px;background:var(--ouro-metal);flex:none;display:inline-block}
 
-.galeria{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;padding:0 8px}
-.galeria img{width:100%;height:420px;object-fit:cover;border-radius:8px}
+.galeria-sec{background:#000;color:var(--sal);overflow:hidden}
+.galeria-sec .lead{color:var(--espuma);margin-top:20px}
+.gal-topo{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.gal-nav{display:flex;gap:10px;flex:none}
+.gal-nav button,.gal-seta{width:52px;height:52px;border-radius:50%;border:1px solid var(--linha-escura);background:transparent;color:var(--sal);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,background .2s}
+.gal-nav button:hover,.gal-seta:hover{border-color:var(--ambar);background:rgba(242,194,48,.08)}
+.gal-nav svg,.gal-seta svg{width:22px;height:22px}
+.gal-trilho{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:40px;padding:0 max(24px,calc((100vw - var(--larg))/2 + 24px));scroll-padding:0 max(24px,calc((100vw - var(--larg))/2 + 24px));cursor:grab;user-select:none;-webkit-user-select:none}
+.gal-trilho::-webkit-scrollbar{display:none}
+.gal-trilho.arrastando{cursor:grabbing;scroll-snap-type:none}
+.gal-item{flex:0 0 clamp(240px,26vw,340px);aspect-ratio:3/4;border:0;padding:0;border-radius:16px;overflow:hidden;scroll-snap-align:start;cursor:zoom-in;background:#111;position:relative}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.gal-item:hover img{transform:scale(1.05)}
+.gal-zoom{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.94);display:grid;place-items:center;padding:56px 72px}
+.gal-zoom[hidden]{display:none}
+.gal-zoom img{max-width:100%;max-height:calc(100vh - 140px);border-radius:12px;object-fit:contain}
+.gal-fechar{position:absolute;top:16px;right:20px;width:48px;height:48px;border:0;background:transparent;color:#fff;font-size:2.25rem;cursor:pointer}
+.gal-seta{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4)}
+.gal-seta.ant{left:16px}.gal-seta.prox{right:16px}
+.gal-legenda{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:var(--espuma);font-size:.9375rem;padding:0 24px}
 
 /* ---------- DEPOIMENTOS ---------- */
 .depo{background:var(--noite);color:var(--sal)}
@@ -273,6 +291,11 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
   .galeria img{height:220px}
   .galeria img:nth-child(2){grid-column:1/-1;order:-1}
   .hero{min-height:100svh}
+  .gal-nav{display:none}
+  .gal-item{flex-basis:72vw}
+  .gal-trilho{padding:0 20px;scroll-padding:0 20px;margin-top:28px}
+  .gal-zoom{padding:56px 12px}
+  .gal-seta{width:44px;height:44px}
   .coment{width:280px;padding:20px}
   .coment blockquote{font-size:1rem}
   .coments{margin-top:40px}
@@ -405,11 +428,34 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
     </div>
   </section>
 
-  <section class="galeria" aria-label="Estruturas montadas pela Arena">
-    <img src="img/galeria-neon.jpg" alt="Noivos dançando na pista com feixes de luz e globos espelhados" loading="lazy">
-    <img src="img/galeria-palco.jpg" alt="Banda no palco sob tenda com feixes de luz azuis" loading="lazy">
-    <img src="img/galeria-pista.jpg" alt="Convidados na pista com luminárias de palha e feixes de luz sobre a banda" loading="lazy">
+  <section class="secao galeria-sec" id="galeria" aria-labelledby="t-galeria">
+    <div class="wrap gal-topo">
+      <div>
+        <h2 id="t-galeria">Galeria de eventos.</h2>
+        <p class="lead">Estruturas que a Arena montou na região, da montagem à festa pronta.</p>
+      </div>
+      <div class="gal-nav">
+        <button type="button" id="galAnt" aria-label="Fotos anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" id="galProx" aria-label="Próximas fotos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="gal-trilho" id="galTrilho" tabindex="0" aria-label="Fotos de eventos, arraste para o lado">
+        <button type="button" class="gal-item" data-i="0" aria-label="Ampliar foto: Cerimônia com altar de flores brancas e vista para o mar"><img src="img/galeria/cerimonia.jpg" alt="Cerimônia com altar de flores brancas e vista para o mar" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="1" aria-label="Ampliar foto: Pista de dança com globos espelhados, feixes de luz e painel de LED"><img src="img/galeria/pista.jpg" alt="Pista de dança com globos espelhados, feixes de luz e painel de LED" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="2" aria-label="Ampliar foto: Tenda montada no jardim com mesas, lounge e vista para o mar"><img src="img/galeria/tenda-jardim.jpg" alt="Tenda montada no jardim com mesas, lounge e vista para o mar" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="3" aria-label="Ampliar foto: Lounge sob tenda com luminárias de palha, bar e flores brancas"><img src="img/galeria/lounge.jpg" alt="Lounge sob tenda com luminárias de palha, bar e flores brancas" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="4" aria-label="Ampliar foto: Palco com bateria, som e iluminação sob tenda"><img src="img/galeria/palco-tenda.jpg" alt="Palco com bateria, som e iluminação sob tenda" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="5" aria-label="Ampliar foto: Equipe da Arena montando o piso de madeira no gramado"><img src="img/galeria/montagem.jpg" alt="Equipe da Arena montando o piso de madeira no gramado" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="6" aria-label="Ampliar foto: Equipe da Arena forrando o tablado do palco"><img src="img/galeria/detalhe.jpg" alt="Equipe da Arena forrando o tablado do palco" loading="lazy" draggable="false"></button>
+    </div>
   </section>
+  <div class="gal-zoom" id="galZoom" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button type="button" class="gal-fechar" id="galFechar" aria-label="Fechar">×</button>
+    <button type="button" class="gal-seta ant" id="galZAnt" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <img id="galZImg" alt="">
+    <button type="button" class="gal-seta prox" id="galZProx" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+    <p class="gal-legenda" id="galZLeg"></p>
+  </div>
 
   <section class="secao depo" id="depoimentos" aria-labelledby="t-depo">
     <div class="wrap">
@@ -642,6 +688,32 @@ const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>
   if (!DEPOIMENTOS.length) return;
   lista.innerHTML = DEPOIMENTOS.map(d => '<article class="depo-card"><div class="depo-video depo-ig"><iframe src="https://www.instagram.com/reel/' + encodeURIComponent(d.reel) + '/embed/" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen scrolling="no" title="Vídeo: ' + escH(d.nome) + '"></iframe></div><div><h3>' + escH(d.nome) + '</h3><p>' + escH(d.evento) + '</p></div></article>').join('');
 })();
+/* ---- Galeria de eventos: arrastar, setas e foto ampliada ---- */
+(function(){
+  const tr = document.getElementById('galTrilho'); if (!tr) return;
+  const itens = [...tr.querySelectorAll('.gal-item')];
+  const passo = () => itens[0].offsetWidth + 16;
+  document.getElementById('galAnt').onclick = () => tr.scrollBy({ left: -passo() * 2, behavior: 'smooth' });
+  document.getElementById('galProx').onclick = () => tr.scrollBy({ left: passo() * 2, behavior: 'smooth' });
+  let arr = null, moveu = false;
+  tr.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; arr = { x: e.clientX, s: tr.scrollLeft }; moveu = false; });
+  addEventListener('pointermove', e => { if (!arr) return; const dx = e.clientX - arr.x; if (Math.abs(dx) > 5) { moveu = true; tr.classList.add('arrastando'); } tr.scrollLeft = arr.s - dx; });
+  addEventListener('pointerup', () => { if (!arr) return; arr = null; tr.classList.remove('arrastando'); });
+  const z = document.getElementById('galZoom'), zi = document.getElementById('galZImg'), zl = document.getElementById('galZLeg');
+  let atual = 0, origem = null;
+  const mostra = i => { atual = (i + itens.length) % itens.length; const im = itens[atual].querySelector('img'); zi.src = im.src; zi.alt = im.alt; zl.textContent = im.alt; };
+  const abre = i => { origem = document.activeElement; mostra(i); z.hidden = false; window.__lenis?.stop(); document.getElementById('galFechar').focus(); (window.dataLayer = window.dataLayer || []).push({ event:'galeria_foto' }); };
+  const fecha = () => { z.hidden = true; window.__lenis?.start(); origem?.focus(); };
+  tr.addEventListener('click', e => { const b = e.target.closest('.gal-item'); if (!b) return; if (moveu) { moveu = false; return; } abre(+b.dataset.i); });
+  document.getElementById('galFechar').onclick = fecha;
+  document.getElementById('galZAnt').onclick = () => mostra(atual - 1);
+  document.getElementById('galZProx').onclick = () => mostra(atual + 1);
+  z.addEventListener('click', e => { if (e.target === z) fecha(); });
+  addEventListener('keydown', e => { if (z.hidden) return; if (e.key === 'Escape') fecha(); if (e.key === 'ArrowLeft') mostra(atual - 1); if (e.key === 'ArrowRight') mostra(atual + 1); });
+  let tx = null; z.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+  z.addEventListener('touchend', e => { if (tx === null) return; const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) mostra(atual + (d < 0 ? 1 : -1)); tx = null; });
+})();
+
 /* ---- Máscara simples de telefone ---- */
 const tel = document.getElementById('telefone');
 tel.addEventListener('input', () => {

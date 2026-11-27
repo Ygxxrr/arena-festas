@@ -160,12 +160,10 @@
     clearProps: 'transform'
   });
 
-  // galeria: fotos em velocidades diferentes (paralaxe)
-  gsap.utils.toArray('.galeria img').forEach((img, i) => {
-    gsap.fromTo(img, { yPercent: i === 1 ? -6 : 8, scale: 1.12 }, {
-      yPercent: i === 1 ? 6 : -8, scale: 1, ease: 'none',
-      scrollTrigger: { trigger: '.galeria', start: 'top bottom', end: 'bottom top', scrub: true }
-    });
+  // galeria de eventos: fotos entram uma a uma
+  gsap.fromTo('.gal-item', { autoAlpha: 0, y: 40, scale: 0.94 }, {
+    autoAlpha: 1, y: 0, scale: 1, duration: 1, ease: OUT, stagger: 0.08, clearProps: 'transform',
+    scrollTrigger: { trigger: '.gal-trilho', start: 'top 85%', once: true }
   });
 
   // ---------- abertura: logo surge com brilho, se revela e pousa no topo ----------

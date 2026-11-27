@@ -163,9 +163,12 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .gal-item.largo{flex-basis:clamp(420px,46vw,600px);aspect-ratio:auto}
 .gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .gal-item:hover img{transform:scale(1.05)}
+.gal-item video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.gal-video::after{content:"";position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/14px no-repeat}
 .gal-zoom{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.94);display:grid;place-items:center;padding:56px 72px}
 .gal-zoom[hidden]{display:none}
-.gal-zoom img{max-width:100%;max-height:calc(100vh - 140px);border-radius:12px;object-fit:contain}
+.gal-zoom img,.gal-zoom video{max-width:100%;max-height:calc(100vh - 140px);border-radius:12px;object-fit:contain}
+.gal-zoom [hidden]{display:none}
 .gal-fechar{position:absolute;top:16px;right:20px;width:48px;height:48px;border:0;background:transparent;color:#fff;font-size:2.25rem;cursor:pointer}
 .gal-seta{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4)}
 .gal-seta.ant{left:16px}.gal-seta.prox{right:16px}
@@ -192,9 +195,10 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .depo-card p{color:var(--espuma);font-size:.9375rem}
 
 .depo-lista:empty{display:none}
-.coments{margin-top:56px;display:flex;flex-direction:column;gap:20px;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.coments-linha{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;cursor:grab;user-select:none;-webkit-user-select:none;overscroll-behavior-x:contain;padding:2px 0}
+.coments{margin-top:56px;display:flex;flex-direction:column;gap:20px}
+.coments-linha{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;cursor:grab;user-select:none;-webkit-user-select:none;overscroll-behavior-x:contain;padding:2px max(24px,calc((100vw - var(--larg))/2 + 24px));scroll-padding:0 max(24px,calc((100vw - var(--larg))/2 + 24px));scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.coments-linha .coment{scroll-snap-align:start}
+.coments-linha.arrastando{scroll-snap-type:none}
 .coments-linha::-webkit-scrollbar{display:none}
 .coments-linha.arrastando{cursor:grabbing}
 .coments-linha a{-webkit-user-drag:none}
@@ -301,6 +305,7 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
   .coment{width:280px;padding:20px}
   .coment blockquote{font-size:1rem}
   .coments{margin-top:40px}
+  .coments-linha{padding:2px 20px;scroll-padding:0 20px}
   .explorar{grid-template-columns:1fr;grid-template-areas:"dica" "foto" "painel";grid-template-rows:auto;gap:20px}
   .explorar-dica{margin-bottom:0}
   .explorar-conteudo{min-height:0}
@@ -441,24 +446,36 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
         <button type="button" id="galProx" aria-label="Próximas fotos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
       </div>
     </div>
-    <div class="gal-trilho" id="galTrilho" tabindex="0" aria-label="Fotos de eventos, arraste para o lado">
-        <button type="button" class="gal-item" data-i="0" aria-label="Ampliar foto: Cerimônia com altar de flores brancas e vista para o mar"><img src="img/galeria/cerimonia.jpg" alt="Cerimônia com altar de flores brancas e vista para o mar" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item largo" data-i="1" aria-label="Ampliar foto: Tenda com tecidos brancos esvoaçantes sobre mesa posta no jardim"><img src="img/galeria/tenda-tecidos.jpg" alt="Tenda com tecidos brancos esvoaçantes sobre mesa posta no jardim" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="2" aria-label="Ampliar foto: Pista de dança com globos espelhados, feixes de luz e painel de LED"><img src="img/galeria/pista.jpg" alt="Pista de dança com globos espelhados, feixes de luz e painel de LED" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item largo" data-i="3" aria-label="Ampliar foto: Festa à noite sob tenda iluminada, com convidados e mesas postas"><img src="img/galeria/festa-noite.jpg" alt="Festa à noite sob tenda iluminada, com convidados e mesas postas" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="4" aria-label="Ampliar foto: Mesa de jantar sob tecidos iluminados com a banda ao fundo"><img src="img/galeria/jantar-noite.jpg" alt="Mesa de jantar sob tecidos iluminados com a banda ao fundo" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="5" aria-label="Ampliar foto: Tenda montada no jardim com mesas, lounge e vista para o mar"><img src="img/galeria/tenda-jardim.jpg" alt="Tenda montada no jardim com mesas, lounge e vista para o mar" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="6" aria-label="Ampliar foto: Lounge sob tenda com luminárias de palha, bar e flores brancas"><img src="img/galeria/lounge.jpg" alt="Lounge sob tenda com luminárias de palha, bar e flores brancas" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="7" aria-label="Ampliar foto: Palco com bateria, som e iluminação sob tenda"><img src="img/galeria/palco-tenda.jpg" alt="Palco com bateria, som e iluminação sob tenda" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="8" aria-label="Ampliar foto: Equipe da Arena finalizando a montagem do palco na tenda à beira-mar"><img src="img/galeria/montagem-praia.jpg" alt="Equipe da Arena finalizando a montagem do palco na tenda à beira-mar" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="9" aria-label="Ampliar foto: Equipe da Arena montando o piso de madeira no gramado"><img src="img/galeria/montagem.jpg" alt="Equipe da Arena montando o piso de madeira no gramado" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="10" aria-label="Ampliar foto: Equipe da Arena forrando o tablado do palco"><img src="img/galeria/detalhe.jpg" alt="Equipe da Arena forrando o tablado do palco" loading="lazy" draggable="false"></button>
+    <div class="gal-trilho" id="galTrilho" tabindex="0" aria-label="Fotos e vídeos de eventos, arraste para o lado">
+        <button type="button" class="gal-item gal-video" data-i="0" data-video="video/galeria/banda-noite.mp4" aria-label="Ampliar vídeo: Banda tocando no palco com feixes de luz roxos"><video muted loop playsinline preload="none" poster="video/galeria/banda-noite.jpg" aria-label="Banda tocando no palco com feixes de luz roxos"><source src="video/galeria/banda-noite.mp4" type="video/mp4"></video><img src="video/galeria/banda-noite.jpg" alt="Banda tocando no palco com feixes de luz roxos" hidden></button>
+        <button type="button" class="gal-item" data-i="1" aria-label="Ampliar foto: Cerimônia com altar de flores brancas e vista para o mar"><img src="img/galeria/cerimonia.jpg" alt="Cerimônia com altar de flores brancas e vista para o mar" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item gal-video" data-i="2" data-video="video/galeria/pista-danca.mp4" aria-label="Ampliar vídeo: Cantor no palco com iluminação azul durante a festa"><video muted loop playsinline preload="none" poster="video/galeria/pista-danca.jpg" aria-label="Cantor no palco com iluminação azul durante a festa"><source src="video/galeria/pista-danca.mp4" type="video/mp4"></video><img src="video/galeria/pista-danca.jpg" alt="Cantor no palco com iluminação azul durante a festa" hidden></button>
+        <button type="button" class="gal-item largo" data-i="3" aria-label="Ampliar foto: Tenda com tecidos brancos esvoaçantes sobre mesa posta no jardim"><img src="img/galeria/tenda-tecidos.jpg" alt="Tenda com tecidos brancos esvoaçantes sobre mesa posta no jardim" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="4" aria-label="Ampliar foto: Padrinhos e madrinhas brindam com os noivos sob a tenda iluminada"><img src="img/galeria/brinde-tenda.jpg" alt="Padrinhos e madrinhas brindam com os noivos sob a tenda iluminada" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item gal-video" data-i="5" data-video="video/galeria/globos.mp4" aria-label="Ampliar vídeo: Globos espelhados e luzes no salão antes da festa"><video muted loop playsinline preload="none" poster="video/galeria/globos.jpg" aria-label="Globos espelhados e luzes no salão antes da festa"><source src="video/galeria/globos.mp4" type="video/mp4"></video><img src="video/galeria/globos.jpg" alt="Globos espelhados e luzes no salão antes da festa" hidden></button>
+        <button type="button" class="gal-item" data-i="6" aria-label="Ampliar foto: Pista de dança com globos espelhados, feixes de luz e painel de LED"><img src="img/galeria/pista.jpg" alt="Pista de dança com globos espelhados, feixes de luz e painel de LED" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item largo" data-i="7" aria-label="Ampliar foto: Festa à noite sob tenda iluminada, com convidados e mesas postas"><img src="img/galeria/festa-noite.jpg" alt="Festa à noite sob tenda iluminada, com convidados e mesas postas" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item gal-video" data-i="8" data-video="video/galeria/sax-luzes.mp4" aria-label="Ampliar vídeo: Saxofonista com feixes de luz no palco sob a tenda"><video muted loop playsinline preload="none" poster="video/galeria/sax-luzes.jpg" aria-label="Saxofonista com feixes de luz no palco sob a tenda"><source src="video/galeria/sax-luzes.mp4" type="video/mp4"></video><img src="video/galeria/sax-luzes.jpg" alt="Saxofonista com feixes de luz no palco sob a tenda" hidden></button>
+        <button type="button" class="gal-item" data-i="9" aria-label="Ampliar foto: Palco com iluminação e plantas no pôr do sol, com o público na praia"><img src="img/galeria/palco-por-do-sol.jpg" alt="Palco com iluminação e plantas no pôr do sol, com o público na praia" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="10" aria-label="Ampliar foto: Mesa de jantar sob tecidos iluminados com a banda ao fundo"><img src="img/galeria/jantar-noite.jpg" alt="Mesa de jantar sob tecidos iluminados com a banda ao fundo" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item gal-video" data-i="11" data-video="video/galeria/tenda-dia.mp4" aria-label="Ampliar vídeo: Tenda montada de dia com mesas, bar e plantas"><video muted loop playsinline preload="none" poster="video/galeria/tenda-dia.jpg" aria-label="Tenda montada de dia com mesas, bar e plantas"><source src="video/galeria/tenda-dia.mp4" type="video/mp4"></video><img src="video/galeria/tenda-dia.jpg" alt="Tenda montada de dia com mesas, bar e plantas" hidden></button>
+        <button type="button" class="gal-item" data-i="12" aria-label="Ampliar foto: Tenda montada no jardim com mesas, lounge e vista para o mar"><img src="img/galeria/tenda-jardim.jpg" alt="Tenda montada no jardim com mesas, lounge e vista para o mar" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="13" aria-label="Ampliar foto: DJ sob painéis de LED com tubos de luz verde"><img src="img/galeria/dj-led.jpg" alt="DJ sob painéis de LED com tubos de luz verde" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="14" aria-label="Ampliar foto: Lounge sob tenda com luminárias de palha, bar e flores brancas"><img src="img/galeria/lounge.jpg" alt="Lounge sob tenda com luminárias de palha, bar e flores brancas" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item gal-video" data-i="15" data-video="video/galeria/painel-mesa.mp4" aria-label="Ampliar vídeo: Painel de LED da Arena e mesa de som no palco"><video muted loop playsinline preload="none" poster="video/galeria/painel-mesa.jpg" aria-label="Painel de LED da Arena e mesa de som no palco"><source src="video/galeria/painel-mesa.mp4" type="video/mp4"></video><img src="video/galeria/painel-mesa.jpg" alt="Painel de LED da Arena e mesa de som no palco" hidden></button>
+        <button type="button" class="gal-item" data-i="16" aria-label="Ampliar foto: Palco com bateria, som e iluminação sob tenda"><img src="img/galeria/palco-tenda.jpg" alt="Palco com bateria, som e iluminação sob tenda" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="17" aria-label="Ampliar foto: Palco com arcos de luz, fumaça e feixes à noite"><img src="img/galeria/palco-noite.jpg" alt="Palco com arcos de luz, fumaça e feixes à noite" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item gal-video" data-i="18" data-video="video/galeria/tenda-bar.mp4" aria-label="Ampliar vídeo: Tenda à beira-mar com mesas altas e bar montados"><video muted loop playsinline preload="none" poster="video/galeria/tenda-bar.jpg" aria-label="Tenda à beira-mar com mesas altas e bar montados"><source src="video/galeria/tenda-bar.mp4" type="video/mp4"></video><img src="video/galeria/tenda-bar.jpg" alt="Tenda à beira-mar com mesas altas e bar montados" hidden></button>
+        <button type="button" class="gal-item" data-i="19" aria-label="Ampliar foto: Equipe da Arena finalizando a montagem do palco na tenda à beira-mar"><img src="img/galeria/montagem-praia.jpg" alt="Equipe da Arena finalizando a montagem do palco na tenda à beira-mar" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="20" aria-label="Ampliar foto: Equipe da Arena montando o piso de madeira no gramado"><img src="img/galeria/montagem.jpg" alt="Equipe da Arena montando o piso de madeira no gramado" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="21" aria-label="Ampliar foto: Equipe da Arena forrando o tablado do palco"><img src="img/galeria/detalhe.jpg" alt="Equipe da Arena forrando o tablado do palco" loading="lazy" draggable="false"></button>
     </div>
   </section>
   <div class="gal-zoom" id="galZoom" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
     <button type="button" class="gal-fechar" id="galFechar" aria-label="Fechar">×</button>
     <button type="button" class="gal-seta ant" id="galZAnt" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
     <img id="galZImg" alt="">
+    <video id="galZVid" muted loop playsinline hidden></video>
     <button type="button" class="gal-seta prox" id="galZProx" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
     <p class="gal-legenda" id="galZLeg"></p>
   </div>
@@ -652,40 +669,15 @@ const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>
   const meio = Math.ceil(COMENTARIOS.length / 2);
   const linhas = [COMENTARIOS.slice(0, meio), COMENTARIOS.slice(meio)];
   const box = document.getElementById('coments');
-  box.innerHTML = linhas.map((l, i) => {
-    const html = l.map(card).join('');
-    return '<div class="coments-linha" data-dir="' + (i ? -1 : 1) + '" tabindex="0" aria-label="Comentários, arraste para o lado">' + html + '<div class="coments-copia" aria-hidden="true">' + html + '</div></div>';
-  }).join('') + '<p class="coments-dica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>Arraste para ler os comentários</p>';
-  /* rolagem automática + controle da pessoa: arrastar, deslizar o dedo ou usar a roda/trackpad pausa a animação */
-  const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  box.innerHTML = linhas.map(l => '<div class="coments-linha" tabindex="0" aria-label="Comentários, arraste para o lado">' + l.map(card).join('') + '</div>').join('') + '<p class="coments-dica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>Arraste para ler os comentários</p>';
+  /* sem rolagem automática: o dedo usa a rolagem nativa; no computador, arrastar com o mouse */
   box.querySelectorAll('.coments-linha').forEach(el => {
-    const dir = +el.dataset.dir; let pausa = 0, pos = 0, arr = null, moveu = false;
-    const metade = () => el.scrollWidth / 2;
-    const segura = (ms = 2500) => { pausa = performance.now() + ms; };
-    requestAnimationFrame(() => { el.scrollLeft = dir < 0 ? metade() - 1 : 1; pos = el.scrollLeft; });
-    const passo = () => {
-      const h = metade();
-      if (!parado && !arr && performance.now() > pausa && h > el.clientWidth) {
-        pos += dir * 0.45; el.scrollLeft = pos;
-      } else pos = el.scrollLeft;
-      if (el.scrollLeft >= h) { el.scrollLeft -= h; pos = el.scrollLeft; }
-      else if (el.scrollLeft < 1) { el.scrollLeft = h - 1; pos = el.scrollLeft; }
-      requestAnimationFrame(passo);
-    };
-    requestAnimationFrame(passo);
-    el.addEventListener('mouseenter', () => segura(1e9));
-    el.addEventListener('mouseleave', () => segura(800));
-    el.addEventListener('touchstart', () => segura(1e9), { passive: true });
-    el.addEventListener('touchend', () => segura(2500), { passive: true });
-    el.addEventListener('wheel', () => segura(2500), { passive: true });
-    el.addEventListener('focusin', () => segura(1e9));
-    el.addEventListener('focusout', () => segura(800));
+    let arr = null, moveu = false;
     el.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; arr = { x: e.clientX, s: el.scrollLeft }; moveu = false; el.classList.add('arrastando'); });
     addEventListener('pointermove', e => { if (!arr) return; const dx = e.clientX - arr.x; if (Math.abs(dx) > 4) moveu = true; el.scrollLeft = arr.s - dx; });
     addEventListener('pointerup', () => { if (!arr) return; arr = null; el.classList.remove('arrastando'); });
     el.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
   });
-  box.querySelectorAll('.coments-copia a').forEach(a => a.tabIndex = -1);
   box.addEventListener('click', e => { if (e.target.closest('.coment-fonte[href]')) (window.dataLayer = window.dataLayer || []).push({ event:'clique_comentario_instagram' }); });
 })();
 /* ---- Vídeos: o próprio player do Instagram, com a capa do reel ---- */
@@ -739,9 +731,19 @@ document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.addEventLis
   addEventListener('pointerup', () => { if (!arr) return; arr = null; tr.classList.remove('arrastando'); });
   const z = document.getElementById('galZoom'), zi = document.getElementById('galZImg'), zl = document.getElementById('galZLeg');
   let atual = 0, origem = null;
-  const mostra = i => { atual = (i + itens.length) % itens.length; const im = itens[atual].querySelector('img'); zi.src = im.src; zi.alt = im.alt; zl.textContent = im.alt; };
+  const zv = document.getElementById('galZVid');
+  const mostra = i => { atual = (i + itens.length) % itens.length; const it = itens[atual], im = it.querySelector('img');
+    if (it.dataset.video) { zi.hidden = true; zi.removeAttribute('src'); zv.hidden = false; zv.poster = im.src; zv.src = it.dataset.video; zv.play().catch(() => {}); }
+    else { zv.pause(); zv.hidden = true; zv.removeAttribute('src'); zi.hidden = false; zi.src = im.src; zi.alt = im.alt; }
+    zl.textContent = im.alt; };
+  /* vídeos da trilha: só tocam quando aparecem na tela */
+  const vids = tr.querySelectorAll('video');
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); }), { rootMargin: '0px 200px' });
+    vids.forEach(v => io.observe(v));
+  }
   const abre = i => { origem = document.activeElement; mostra(i); z.hidden = false; window.__lenis?.stop(); document.getElementById('galFechar').focus(); (window.dataLayer = window.dataLayer || []).push({ event:'galeria_foto' }); };
-  const fecha = () => { z.hidden = true; window.__lenis?.start(); origem?.focus(); };
+  const fecha = () => { zv.pause(); zv.removeAttribute('src'); z.hidden = true; window.__lenis?.start(); origem?.focus(); };
   tr.addEventListener('click', e => { const b = e.target.closest('.gal-item'); if (!b) return; if (moveu) { moveu = false; return; } abre(+b.dataset.i); });
   document.getElementById('galFechar').onclick = fecha;
   document.getElementById('galZAnt').onclick = () => mostra(atual - 1);

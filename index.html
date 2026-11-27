@@ -694,6 +694,38 @@ const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>
   if (!DEPOIMENTOS.length) return;
   lista.innerHTML = DEPOIMENTOS.map(d => '<article class="depo-card"><div class="depo-video depo-ig"><iframe src="https://www.instagram.com/reel/' + encodeURIComponent(d.reel) + '/embed/" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen scrolling="no" title="Vídeo: ' + escH(d.nome) + '"></iframe></div><div><h3>' + escH(d.nome) + '</h3><p>' + escH(d.evento) + '</p></div></article>').join('');
 })();
+/* ---- Foto com pontos: cada ponto mostra um serviço ---- */
+(function(){
+  const itens = {
+    iluminacao: { nome:'Iluminação', servico:'Iluminação', txt:'Refletores, feixes de luz e iluminação de ambiente para a festa ter clima depois que o sol se põe.', uso:'festas noturnas, áreas externas' },
+    tenda: { nome:'Tenda', servico:'Tendas', txt:'Cobertura que protege os convidados do sol e da chuva e ainda serve de base para a iluminação.', uso:'quintais, praia, áreas sem cobertura' },
+    som: { nome:'Som', servico:'Som', txt:'Caixas, mesa de som e técnico acompanhando o evento, do discurso de abertura à pista cheia.', uso:'confraternizações, festas com DJ ou banda' },
+    palco: { nome:'Palco', servico:'Palco', txt:'Palco no tamanho certo para banda, DJ, apresentações ou o momento da premiação da equipe.', uso:'shows, discursos, premiações' }
+  };
+  const conteudo = document.getElementById('explorarConteudo');
+  const pontos = document.querySelectorAll('.ponto');
+  if (!conteudo || !pontos.length) return;
+  pontos.forEach(p => p.addEventListener('click', () => {
+    const it = itens[p.dataset.ponto];
+    pontos.forEach(x => { x.classList.toggle('ativo', x === p); x.setAttribute('aria-pressed', x === p); });
+    conteudo.innerHTML = '<h3>' + it.nome + '</h3><p>' + it.txt + '</p><p class="uso"><b>Ideal para</b>' + it.uso + '</p>' +
+      '<button type="button" class="btn" data-servico="' + it.servico + '"><span class="btn__txt" data-txt="Quero ' + it.nome.toLowerCase() + ' na minha festa">Quero ' + it.nome.toLowerCase() + ' na minha festa</span></button>';
+    conteudo.classList.remove('troca'); void conteudo.offsetWidth; conteudo.classList.add('troca');
+    if (matchMedia('(max-width: 860px)').matches) {
+      const r = conteudo.getBoundingClientRect();
+      if (r.bottom > innerHeight - 90) scrollBy({ top: r.bottom - innerHeight + 110, behavior: 'smooth' });
+    }
+    (window.dataLayer = window.dataLayer || []).push({ event:'ponto_estrutura', item: it.nome });
+  }));
+  conteudo.addEventListener('click', e => {
+    const b = e.target.closest('[data-servico]'); if (!b) return;
+    const chk = document.querySelector('[name=servicos][value="' + b.dataset.servico + '"]');
+    if (chk) chk.checked = true;
+    if (window.irPara) window.irPara('#orcamento'); else document.getElementById('orcamento').scrollIntoView({ behavior: 'smooth' });
+  });
+})();
+document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.addEventListener('click', () => (window.dataLayer = window.dataLayer || []).push({ event:'clique_instagram' })));
+
 /* ---- Galeria de eventos: arrastar, setas e foto ampliada ---- */
 (function(){
   const tr = document.getElementById('galTrilho'); if (!tr) return;

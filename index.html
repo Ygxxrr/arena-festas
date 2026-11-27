@@ -160,6 +160,7 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .gal-trilho::-webkit-scrollbar{display:none}
 .gal-trilho.arrastando{cursor:grabbing;scroll-snap-type:none}
 .gal-item{flex:0 0 clamp(240px,26vw,340px);aspect-ratio:3/4;border:0;padding:0;border-radius:16px;overflow:hidden;scroll-snap-align:start;cursor:zoom-in;background:#111;position:relative}
+.gal-item.largo{flex-basis:clamp(420px,46vw,600px);aspect-ratio:auto}
 .gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .gal-item:hover img{transform:scale(1.05)}
 .gal-zoom{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.94);display:grid;place-items:center;padding:56px 72px}
@@ -293,6 +294,7 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
   .hero{min-height:100svh}
   .gal-nav{display:none}
   .gal-item{flex-basis:72vw}
+  .gal-item.largo{flex-basis:88vw}
   .gal-trilho{padding:0 20px;scroll-padding:0 20px;margin-top:28px}
   .gal-zoom{padding:56px 12px}
   .gal-seta{width:44px;height:44px}
@@ -441,12 +443,15 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
     </div>
     <div class="gal-trilho" id="galTrilho" tabindex="0" aria-label="Fotos de eventos, arraste para o lado">
         <button type="button" class="gal-item" data-i="0" aria-label="Ampliar foto: Cerimônia com altar de flores brancas e vista para o mar"><img src="img/galeria/cerimonia.jpg" alt="Cerimônia com altar de flores brancas e vista para o mar" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="1" aria-label="Ampliar foto: Pista de dança com globos espelhados, feixes de luz e painel de LED"><img src="img/galeria/pista.jpg" alt="Pista de dança com globos espelhados, feixes de luz e painel de LED" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="2" aria-label="Ampliar foto: Tenda montada no jardim com mesas, lounge e vista para o mar"><img src="img/galeria/tenda-jardim.jpg" alt="Tenda montada no jardim com mesas, lounge e vista para o mar" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="3" aria-label="Ampliar foto: Lounge sob tenda com luminárias de palha, bar e flores brancas"><img src="img/galeria/lounge.jpg" alt="Lounge sob tenda com luminárias de palha, bar e flores brancas" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="4" aria-label="Ampliar foto: Palco com bateria, som e iluminação sob tenda"><img src="img/galeria/palco-tenda.jpg" alt="Palco com bateria, som e iluminação sob tenda" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="5" aria-label="Ampliar foto: Equipe da Arena montando o piso de madeira no gramado"><img src="img/galeria/montagem.jpg" alt="Equipe da Arena montando o piso de madeira no gramado" loading="lazy" draggable="false"></button>
-        <button type="button" class="gal-item" data-i="6" aria-label="Ampliar foto: Equipe da Arena forrando o tablado do palco"><img src="img/galeria/detalhe.jpg" alt="Equipe da Arena forrando o tablado do palco" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item largo" data-i="1" aria-label="Ampliar foto: Tenda com tecidos brancos esvoaçantes sobre mesa posta no jardim"><img src="img/galeria/tenda-tecidos.jpg" alt="Tenda com tecidos brancos esvoaçantes sobre mesa posta no jardim" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="2" aria-label="Ampliar foto: Pista de dança com globos espelhados, feixes de luz e painel de LED"><img src="img/galeria/pista.jpg" alt="Pista de dança com globos espelhados, feixes de luz e painel de LED" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item largo" data-i="3" aria-label="Ampliar foto: Festa à noite sob tenda iluminada, com convidados e mesas postas"><img src="img/galeria/festa-noite.jpg" alt="Festa à noite sob tenda iluminada, com convidados e mesas postas" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="4" aria-label="Ampliar foto: Mesa de jantar sob tecidos iluminados com a banda ao fundo"><img src="img/galeria/jantar-noite.jpg" alt="Mesa de jantar sob tecidos iluminados com a banda ao fundo" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="5" aria-label="Ampliar foto: Tenda montada no jardim com mesas, lounge e vista para o mar"><img src="img/galeria/tenda-jardim.jpg" alt="Tenda montada no jardim com mesas, lounge e vista para o mar" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="6" aria-label="Ampliar foto: Lounge sob tenda com luminárias de palha, bar e flores brancas"><img src="img/galeria/lounge.jpg" alt="Lounge sob tenda com luminárias de palha, bar e flores brancas" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="7" aria-label="Ampliar foto: Palco com bateria, som e iluminação sob tenda"><img src="img/galeria/palco-tenda.jpg" alt="Palco com bateria, som e iluminação sob tenda" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="8" aria-label="Ampliar foto: Equipe da Arena montando o piso de madeira no gramado"><img src="img/galeria/montagem.jpg" alt="Equipe da Arena montando o piso de madeira no gramado" loading="lazy" draggable="false"></button>
+        <button type="button" class="gal-item" data-i="9" aria-label="Ampliar foto: Equipe da Arena forrando o tablado do palco"><img src="img/galeria/detalhe.jpg" alt="Equipe da Arena forrando o tablado do palco" loading="lazy" draggable="false"></button>
     </div>
   </section>
   <div class="gal-zoom" id="galZoom" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">

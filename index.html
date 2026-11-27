@@ -156,7 +156,7 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .depo{background:var(--noite);color:var(--sal)}
 .depo .lead{color:var(--espuma);margin-top:20px}
 .depo-lista{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:48px;padding-bottom:12px;scrollbar-width:thin}
-.depo-card{flex:0 0 clamp(240px,28%,300px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px}
+.depo-card{flex:0 0 clamp(280px,30%,340px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px}
 .depo-video{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#141414;border:1px solid var(--linha-escura)}
 .depo-video iframe,.depo-video video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
 .depo-play{position:absolute;inset:0;display:grid;place-items:center;width:100%;border:0;cursor:pointer;color:var(--sal);
@@ -165,6 +165,10 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .depo-play span{position:relative;width:72px;height:72px;border-radius:50%;background:var(--ouro-metal);display:grid;place-items:center;box-shadow:0 8px 30px rgba(242,194,48,.35);transition:transform .15s}
 .depo-play:hover span{transform:scale(1.06)}
 .depo-play svg{width:26px;height:26px;margin-left:4px}
+.depo-play em{position:absolute;bottom:24px;font-style:normal;font-weight:600;font-size:.9375rem;color:var(--sal)}
+.depo-ig{aspect-ratio:auto;height:600px;background:#fff;border:0}
+.depo-ig iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.depo-lista{justify-content:flex-start}
 .depo-card h3{font-size:1.0625rem;font-weight:600}
 .depo-card p{color:var(--espuma);font-size:.9375rem}
 
@@ -179,7 +183,13 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .coment blockquote{font-size:1.0625rem;line-height:1.55;color:#EDEDED;position:relative;padding-top:28px}
 .coment blockquote::before{content:"\201C";position:absolute;top:-14px;left:-2px;font-family:var(--display);font-size:3.5rem;line-height:1;background:var(--ouro-metal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .coment-autor{display:flex;align-items:center;gap:12px}
-.coment-avatar{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--ouro-metal);color:#0A0A0A;font-weight:700;font-size:1rem;text-transform:uppercase}
+.coment-avatar{width:40px;height:40px;border-radius:50%;flex:none;object-fit:cover;background:#222;box-shadow:0 0 0 2px #111,0 0 0 3px rgba(242,194,48,.7)}
+.coments-copia{display:contents}
+.coment-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.coment-curtido{display:flex;align-items:center;gap:6px;font-size:.8125rem;color:var(--espuma);margin-top:-6px}
+.coment-curtido svg{width:14px;height:14px}
+a.coment-fonte{text-decoration:none;color:var(--ambar);font-weight:600}
+a.coment-fonte:hover{text-decoration:underline}
 .coment-nome{font-weight:600;font-size:.9375rem;display:flex;align-items:center;gap:5px}
 .coment-nome svg{width:15px;height:15px;flex:none}
 .coment-fonte{color:var(--espuma);font-size:.8125rem;display:flex;align-items:center;gap:6px}
@@ -402,7 +412,7 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
   <section class="secao depo" id="depoimentos" aria-labelledby="t-depo">
     <div class="wrap">
       <h2 id="t-depo">Quem já fechou com a Arena.</h2>
-      <p class="lead">Comentários de noivas, noivos e clientes nas publicações da Arena no Instagram.</p>
+      <p class="lead">Vídeos e comentários de noivas, noivos e clientes nas publicações da Arena no Instagram.</p>
       <div class="depo-lista" id="depoLista" aria-label="Depoimentos em vídeo"></div>
     </div>
     <div class="coments" id="coments" aria-label="Comentários de clientes no Instagram"></div>
@@ -554,79 +564,53 @@ const linkZap = 'https://wa.me/' + ZAP + '?text=' + encodeURIComponent(msgZap);
    video: caminho de um .mp4 hospedado junto da página (ex.: 'videos/isabel.mp4')  OU
    drive: ID do arquivo no Google Drive (o arquivo precisa estar compartilhado como "Qualquer pessoa com o link").
    capa: imagem opcional exibida antes do play (ex.: 'img/capa-isabel.jpg'). */
-const DEPOIMENTOS = [];
-/* ---- Comentários reais do Instagram da Arena ---- */
-const COMENTARIOS = [
-  { u:'brunapaollaf', t:'Foi lindo demais 😍 Equipe comprometida com muito profissionalismo e uma entrega de excelência! Nosso dia foi memorável e vocês tem grande parte nisso! Gratidão 🙏🏻✨' },
-  { u:'nathalynvs', t:'Eu tive os melhores ao meu lado no meu grande dia ❤️😍' },
-  { u:'dragracielamiranda', v:true, t:'Foi tudo perfeito 🥹 Vocês foram impecável em todos os detalhes! Vai ficar marcado na memória essa noite perfeita ❤️ obrigada pela entrega, foi lindo' },
-  { u:'biancadebritto', t:'Tudo impecável. Vocês são top!!!!!' },
-  { u:'azevedolorrana', t:'Ficou muito mais bonito do que eu imaginei. Você entrega muito mais do que um sonho. Você elevou todas as minhas expectativas.' },
-  { u:'drajuliarodrigsm', t:'Foi tudo maravilhoso! Obrigada @grupoarenaeventos! 🤍' },
-  { u:'othalysbaiao', t:'Obrigado por fazer parte desse dia tão especial para nós. Somos imensamente gratos a toda a equipe por todo o carinho e dedicação! ❤️' },
-  { u:'ludialmeida', t:'Arrasaram demais! Tudo impecável. 👏🏽🎉' },
-  { u:'azevedolorrana', t:'Vocês foram SENSACIONAIS entregaram TUDO e com uma qualidade e profissionalismo impecável. Minha eterna gratidão e admiração. 🙏🏾🤎' },
-  { u:'babimagalhaesoficial', v:true, t:'👏👏👏👏 Tudo perfeito 😍😍' },
-  { u:'carolinalara_bahiaweddinghub', t:'PARABÉNS E OBRIGADA PELA ENTREGA 👏🏻 ME SURPREENDERAM, FOI INCRÍVEL!!! BORA PARA OS PRÓXIMOS!!!' },
-  { u:'isabelaacfreitas', t:'Foi lindo demais 😍❤️' }
+/* ---- Vídeos do Instagram da Arena (reels) ---- */
+const DEPOIMENTOS = [
+  { reel:'DYctGNWuUgb', nome:'Alisson, noivo', evento:'Agradecendo a equipe da Arena pelo casamento' },
+  { reel:'DaHAcisNhlf', nome:'@anamenezesfit', evento:'Casamento da influenciadora, com 1,7 milhão de seguidores' }
 ];
+/* ---- Comentários reais do Instagram da Arena ----
+   p = código do post (instagram.com/reel/CÓDIGO), c = curtido pela Arena */
+const COMENTARIOS = [
+  { u:'brunapaollaf', p:'DPzFdi4jlPO', c:true, t:'Foi lindo demais 😍 Equipe comprometida com muito profissionalismo e uma entrega de excelência! Nosso dia foi memorável e vocês tem grande parte nisso! Gratidão 🙏🏻✨' },
+  { u:'nathalynvs', p:'DW4F4MmjiNJ', t:'Eu tive os melhores ao meu lado no meu grande dia ❤️😍' },
+  { u:'dragracielamiranda', p:'DgNQ8haxhp4', v:true, t:'Foi tudo perfeito 🥹 Vocês foram impecável em todos os detalhes! Vai ficar marcado na memória essa noite perfeita ❤️ obrigada pela entrega, foi lindo' },
+  { u:'biancadebritto', p:'DSDks_eESyW', c:true, t:'Tudo impecável. Vocês são top!!!!!' },
+  { u:'azevedolorrana', p:'DQCxXUMDqra', c:true, t:'Ficou muito mais bonito do que eu imaginei. Você entrega muito mais do que um sonho. Você elevou todas as minhas expectativas.' },
+  { u:'drajuliarodrigsm', p:'DdTtw2pRGy0', t:'Foi tudo maravilhoso! Obrigada @grupoarenaeventos! 🤍' },
+  { u:'othalysbaiao', p:'DeKmZsuy1vP', t:'Obrigado por fazer parte desse dia tão especial para nós. Somos imensamente gratos a toda a equipe por todo o carinho e dedicação! ❤️' },
+  { u:'ludialmeida', p:'DVg9Qd1jvId', t:'Arrasaram demais! Tudo impecável. 👏🏽🎉' },
+  { u:'azevedolorrana', p:'DQCxXUMDqra', c:true, t:'Vocês foram SENSACIONAIS entregaram TUDO e com uma qualidade e profissionalismo impecável. Minha eterna gratidão e admiração. 🙏🏾🤎' },
+  { u:'babimagalhaesoficial', p:'DYbBGlaOfOC', v:true, c:true, t:'👏👏👏👏 Tudo perfeito 😍😍' },
+  { u:'carolinalara_bahiaweddinghub', p:'DOWM_8wjnny', c:true, t:'PARABÉNS E OBRIGADA PELA ENTREGA 👏🏻 ME SURPREENDERAM, FOI INCRÍVEL!!! BORA PARA OS PRÓXIMOS!!!' },
+  { u:'isabelaacfreitas', p:'DczDGPSPlV0', c:true, t:'Foi lindo demais 😍❤️' }
+];
+const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 (function(){
-  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const selo = '<svg viewBox="0 0 24 24" aria-label="conta verificada"><path fill="#3897F0" d="M12 1l2.6 2.2 3.4-.4.9 3.3 3 1.7-1.2 3.2 1.2 3.2-3 1.7-.9 3.3-3.4-.4L12 23l-2.6-2.2-3.4.4-.9-3.3-3-1.7L3.3 13 2.1 9.8l3-1.7.9-3.3 3.4.4z"/><path fill="#fff" d="M10.6 15.6l-3.2-3.2 1.4-1.4 1.8 1.8 4.6-4.6 1.4 1.4z"/></svg>';
   const ig = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>';
-  const card = c => '<figure class="coment"><blockquote>' + esc(c.t) + '</blockquote><figcaption class="coment-autor"><span class="coment-avatar" aria-hidden="true">' + esc(c.u[0]) + '</span><span><span class="coment-nome">@' + esc(c.u) + (c.v ? selo : '') + '</span><span class="coment-fonte">' + ig + 'Comentário no Instagram</span></span></figcaption></figure>';
+  const coracao = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF3040" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 4.3 2.4h2c.7-1.3 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+  const card = c => '<figure class="coment"><blockquote>' + escH(c.t) + '</blockquote>' +
+    (c.c ? '<p class="coment-curtido">' + coracao + 'Curtido pela Arena</p>' : '') +
+    '<figcaption class="coment-autor"><img class="coment-avatar" src="img/av/' + escH(c.u) + '.jpg" alt="" loading="lazy" width="40" height="40"><span class="coment-info"><span class="coment-nome">@' + escH(c.u) + (c.v ? selo : '') + '</span>' +
+    (c.p ? '<a class="coment-fonte" href="https://www.instagram.com/reel/' + escH(c.p) + '/" target="_blank" rel="noopener">' + ig + 'Ver no Instagram</a>' : '<span class="coment-fonte">' + ig + 'Comentário no Instagram</span>') +
+    '</span></figcaption></figure>';
   const meio = Math.ceil(COMENTARIOS.length / 2);
   const linhas = [COMENTARIOS.slice(0, meio), COMENTARIOS.slice(meio)];
   const box = document.getElementById('coments');
   box.innerHTML = linhas.map((l, i) => {
     const html = l.map(card).join('');
-    return '<div class="coments-linha' + (i ? ' volta' : '') + '" style="--dur:' + (l.length * 11) + 's">' + html + '<div style="display:contents" aria-hidden="true">' + html + '</div></div>';
+    return '<div class="coments-linha' + (i ? ' volta' : '') + '" style="--dur:' + (l.length * 11) + 's">' + html + '<div class="coments-copia" aria-hidden="true">' + html + '</div></div>';
   }).join('');
-  // a cópia é só para o carrossel infinito: leitores de tela leem cada comentário uma vez
-  box.querySelectorAll('[aria-hidden="true"] .coment').forEach(c => c.setAttribute('aria-hidden', 'true'));
+  box.querySelectorAll('.coments-copia a').forEach(a => a.tabIndex = -1);
+  box.addEventListener('click', e => { if (e.target.closest('.coment-fonte[href]')) (window.dataLayer = window.dataLayer || []).push({ event:'clique_comentario_instagram' }); });
 })();
-/* ---- Vídeos de depoimento (opcional): adicione aqui quando houver vídeos da Arena ---- */
+/* ---- Vídeos: o próprio player do Instagram, com a capa do reel ---- */
 (function(){
   const lista = document.getElementById('depoLista');
   if (!DEPOIMENTOS.length) return;
-  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  lista.innerHTML = DEPOIMENTOS.map((d, i) => '<article class="depo-card"><div class="depo-video"><button type="button" class="depo-play" data-i="' + i + '" aria-label="Assistir depoimento de ' + esc(d.nome) + '"><span><svg viewBox="0 0 24 24" fill="#0A0A0A"><path d="M6 4l14 8-14 8z"/></svg></span></button></div><div><h3>' + esc(d.nome) + '</h3><p>' + esc(d.evento) + '</p></div></article>').join('');
-  lista.addEventListener('click', e => {
-    const b = e.target.closest('.depo-play'); if (!b) return;
-    const d = DEPOIMENTOS[b.dataset.i];
-    b.parentElement.innerHTML = d.video ? '<video src="' + esc(d.video) + '" controls autoplay playsinline></video>' : '<iframe src="https://drive.google.com/file/d/' + encodeURIComponent(d.drive) + '/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>';
-  });
+  lista.innerHTML = DEPOIMENTOS.map(d => '<article class="depo-card"><div class="depo-video depo-ig"><iframe src="https://www.instagram.com/reel/' + encodeURIComponent(d.reel) + '/embed/" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen scrolling="no" title="Vídeo: ' + escH(d.nome) + '"></iframe></div><div><h3>' + escH(d.nome) + '</h3><p>' + escH(d.evento) + '</p></div></article>').join('');
 })();
-
-document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.addEventListener('click', () => (window.dataLayer = window.dataLayer || []).push({ event:'clique_instagram' })));
-
-/* ---- Foto com pontos: cada ponto mostra um serviço ---- */
-(function(){
-  const itens = {
-    iluminacao: { nome:'Iluminação', servico:'Iluminação', txt:'Refletores, feixes de luz e iluminação de ambiente para a festa ter clima depois que o sol se põe.', uso:'festas noturnas, áreas externas' },
-    tenda: { nome:'Tenda', servico:'Tendas', txt:'Cobertura que protege os convidados do sol e da chuva e ainda serve de base para a iluminação.', uso:'quintais, praia, áreas sem cobertura' },
-    som: { nome:'Som', servico:'Som', txt:'Caixas, mesa de som e técnico acompanhando o evento, do discurso de abertura à pista cheia.', uso:'confraternizações, festas com DJ ou banda' },
-    palco: { nome:'Palco', servico:'Palco', txt:'Palco no tamanho certo para banda, DJ, apresentações ou o momento da premiação da equipe.', uso:'shows, discursos, premiações' }
-  };
-  const conteudo = document.getElementById('explorarConteudo');
-  const pontos = document.querySelectorAll('.ponto');
-  pontos.forEach(p => p.addEventListener('click', () => {
-    const it = itens[p.dataset.ponto];
-    pontos.forEach(x => { x.classList.toggle('ativo', x === p); x.setAttribute('aria-pressed', x === p); });
-    conteudo.innerHTML = '<h3>' + it.nome + '</h3><p>' + it.txt + '</p><p class="uso"><b>Ideal para</b>' + it.uso + '</p>' +
-      '<button type="button" class="btn" data-servico="' + it.servico + '"><span class="btn__txt" data-txt="Quero ' + it.nome.toLowerCase() + ' na minha festa">Quero ' + it.nome.toLowerCase() + ' na minha festa</span></button>';
-    conteudo.classList.remove('troca'); void conteudo.offsetWidth; conteudo.classList.add('troca');
-    if (matchMedia('(max-width: 860px)').matches) conteudo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    (window.dataLayer = window.dataLayer || []).push({ event:'ponto_estrutura', item: it.nome });
-  }));
-  conteudo.addEventListener('click', e => {
-    const b = e.target.closest('[data-servico]'); if (!b) return;
-    const chk = document.querySelector('[name=servicos][value="' + b.dataset.servico + '"]');
-    if (chk) chk.checked = true;
-    if (window.irPara) window.irPara('#orcamento'); else document.getElementById('orcamento').scrollIntoView({ behavior: 'smooth' });
-  });
-})();
-
 /* ---- Máscara simples de telefone ---- */
 const tel = document.getElementById('telefone');
 tel.addEventListener('input', () => {

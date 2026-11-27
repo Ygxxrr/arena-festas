@@ -147,6 +147,12 @@
       { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: OUT, stagger: 0.08 }, 0.25);
   });
 
+  // foto com pontos: a foto se abre e os pontos aparecem um a um
+  const tlPontos = gsap.timeline({ scrollTrigger: { trigger: '.explorar', start: 'top 80%', once: true } });
+  tlPontos.fromTo('.explorar-foto', { clipPath: 'inset(100% 0% 0% 0% round 16px)' }, { clipPath: 'inset(0% 0% 0% 0% round 16px)', duration: 1.3, ease: 'expo.inOut' })
+    .fromTo('.ponto', { autoAlpha: 0, scale: 0.3 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: 'back.out(2.5)', stagger: 0.15, clearProps: 'transform' }, '-=0.3')
+    .fromTo('.explorar-painel, .explorar-dica', { autoAlpha: 0, y: 24, filter: 'blur(10px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: OUT }, '-=0.8');
+
   // calendário: dias acendem em sequência
   gsap.fromTo('.dias button', { autoAlpha: 0, scale: 0.6 }, {
     autoAlpha: 1, scale: 1, duration: 0.6, ease: 'back.out(2)', stagger: { each: 0.018, from: 'start' },

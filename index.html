@@ -105,6 +105,32 @@ h2{font-size:clamp(1.5rem,5.4vw,2.75rem);font-weight:800;max-width:20ch}
 .rider .uso{color:var(--espuma);font-size:.9375rem}
 .rider .uso b{display:block;color:var(--ambar);font-weight:600;font-size:.875rem;margin-bottom:2px}
 
+/* ---------- FOTO COM PONTOS ---------- */
+.explorar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"foto ." "foto dica" "foto painel" "foto .";grid-template-rows:1fr auto auto 1fr;column-gap:48px;align-items:start;margin-top:48px}
+.explorar-foto{grid-area:foto}.explorar-dica{grid-area:dica;align-self:end}.explorar-painel{grid-area:painel}
+.explorar-foto{position:relative;border-radius:16px;overflow:hidden;max-width:520px;width:100%;justify-self:center}
+.explorar-foto img{width:100%;height:auto;display:block}
+.ponto{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;padding:0;
+  background:var(--ouro-metal);color:#0A0A0A;font:600 1.5rem/1 var(--texto);display:grid;place-items:center;box-shadow:0 4px 18px rgba(0,0,0,.5);transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.ponto::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--ambar);animation:pulso 2s ease-out infinite;pointer-events:none}
+.ponto span{transition:transform .3s cubic-bezier(.22,1,.36,1);margin-top:-2px}
+.ponto:hover{transform:translate(-50%,-50%) scale(1.1)}
+.ponto.ativo{background:#fff}
+.ponto.ativo span{transform:rotate(45deg)}
+.ponto.ativo::before{animation:none;opacity:0}
+@keyframes pulso{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.explorar-dica{display:flex;align-items:center;gap:12px;color:var(--espuma);font-size:.9375rem;margin-bottom:24px}
+.explorar-pulso{flex:none;width:12px;height:12px;border-radius:50%;background:var(--ambar);box-shadow:0 0 0 0 rgba(242,194,48,.6);animation:pulsoDot 2s ease-out infinite}
+@keyframes pulsoDot{to{box-shadow:0 0 0 12px rgba(242,194,48,0)}}
+.explorar-conteudo{min-height:220px}
+.explorar-conteudo h3{font-size:clamp(1.375rem,2.6vw,1.875rem);font-weight:600;margin-bottom:14px}
+.explorar-conteudo p{color:#E6E6E6;max-width:44ch}
+.explorar-conteudo .uso{color:var(--espuma);font-size:.9375rem;margin-top:14px}
+.explorar-conteudo .uso b{display:block;color:var(--ambar);font-weight:600;font-size:.875rem}
+.explorar-conteudo .btn{margin-top:24px}
+.explorar-conteudo.troca{animation:trocaCard .45s cubic-bezier(.22,1,.36,1)}
+@keyframes trocaCard{from{opacity:0;transform:translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
 /* ---------- FIM DE ANO ---------- */
 .dezembro{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
 .calendario{background:var(--noite);color:var(--sal);border-radius:20px;padding:32px}
@@ -220,6 +246,10 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
   .galeria img{height:220px}
   .galeria img:nth-child(2){grid-column:1/-1;order:-1}
   .hero{min-height:100svh}
+  .explorar{grid-template-columns:1fr;grid-template-areas:"dica" "foto" "painel";grid-template-rows:auto;gap:20px}
+  .explorar-dica{margin-bottom:0}
+  .explorar-conteudo{min-height:0}
+  .ponto{width:40px;height:40px}
   .insta-grid{grid-template-columns:1fr;gap:36px}
   .hero-foto{height:62%;object-position:center 60%}
   .hero::after{background:linear-gradient(to top,#000 42%,rgba(0,0,0,.55) 58%,rgba(0,0,0,.1) 80%,rgba(0,0,0,.55))}
@@ -296,13 +326,30 @@ footer{border-top:1px solid var(--linha-escura);background:#000;color:var(--espu
       <h2 id="t-catalogo">O que a Arena leva para a sua festa.</h2>
       <p class="lead">Escolha só o que precisa ou feche o pacote completo. Tudo é dimensionado depois que entendemos o tamanho e o local do evento.</p>
 
+      <div class="explorar">
+        <p class="explorar-dica"><span class="explorar-pulso" aria-hidden="true"></span>Toque nos pontos da foto para conhecer cada parte da estrutura.</p>
+        <figure class="explorar-foto">
+          <img src="img/estrutura.jpg" alt="Palco com banda, iluminação, som e tenda montados pela Arena em festa noturna" loading="lazy">
+          <button type="button" class="ponto" data-ponto="iluminacao" style="--x:72.8%;--y:33.5%" aria-label="Iluminação"><span>+</span></button>
+          <button type="button" class="ponto" data-ponto="tenda" style="--x:40%;--y:16%" aria-label="Tenda"><span>+</span></button>
+          <button type="button" class="ponto" data-ponto="som" style="--x:6.5%;--y:54%" aria-label="Som"><span>+</span></button>
+          <button type="button" class="ponto" data-ponto="palco" style="--x:55%;--y:79%" aria-label="Palco"><span>+</span></button>
+        </figure>
+        <div class="explorar-painel" id="explorarPainel" aria-live="polite">
+          <div class="explorar-conteudo" id="explorarConteudo">
+            <h3>Tudo isso numa festa só.</h3>
+            <p>Nesta noite, a Arena levou iluminação, som, palco e tenda para o mesmo evento, com uma equipe cuidando de tudo.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="grupo-titulo">
         <h3>Estrutura própria</h3>
         <p>Equipamento da Arena, operado pela nossa equipe</p>
       </div>
       <ul class="rider">
         <li><img class="foto" src="img/som.jpg" alt="DJ tocando em palco cenográfico com iluminação" loading="lazy"><span class="nome">Som</span><span class="desc">Sistema para música ambiente, pista e microfone para discursos e brindes, com técnico acompanhando o evento.</span><span class="uso"><b>Bom para</b>confraternizações, festas com DJ ou banda</span></li>
-        <li><img class="foto" src="img/iluminacao.jpg" alt="Refletores e efeitos de luz sobre palco à noite" loading="lazy"><span class="nome">Iluminação</span><span class="desc">Luz cênica, de pista e de ambientação, para a festa ter clima depois que o sol se põe.</span><span class="uso"><b>Bom para</b>festas noturnas, áreas externas</span></li>
+        <li><img class="foto" src="img/iluminacao.jpg" alt="Refletores e feixes de luz coloridos sobre palco coberto por tenda" loading="lazy"><span class="nome">Iluminação</span><span class="desc">Luz cênica, de pista e de ambientação, para a festa ter clima depois que o sol se põe.</span><span class="uso"><b>Bom para</b>festas noturnas, áreas externas</span></li>
         <li><img class="foto" src="img/palco.jpg" alt="Palco com bateria, painel de LED e iluminação montado sob tenda" loading="lazy"><span class="nome">Palco</span><span class="desc">Palco no tamanho certo para banda, DJ, apresentações ou o momento da premiação da equipe.</span><span class="uso"><b>Bom para</b>shows, discursos, premiações</span></li>
         <li><img class="foto" src="img/tendas.jpg" alt="Tenda montada na praia com bar, mesas e decoração" loading="lazy"><span class="nome">Tendas</span><span class="desc">Cobertura para proteger convidados de sol e chuva, transformando qualquer área aberta em espaço de festa.</span><span class="uso"><b>Bom para</b>quintais, praia, áreas sem cobertura</span></li>
         <li><img class="foto" src="img/led.jpg" alt="Painel de LED sobre cabine de DJ em festa noturna" loading="lazy"><span class="nome">Painel de LED</span><span class="desc">Telão para vídeos, retrospectiva do ano, identidade da empresa e transmissão ao vivo.</span><span class="uso"><b>Bom para</b>eventos corporativos, retrospectivas</span></li>
@@ -519,6 +566,33 @@ const DEPOIMENTOS = [
 })();
 
 document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.addEventListener('click', () => (window.dataLayer = window.dataLayer || []).push({ event:'clique_instagram' })));
+
+/* ---- Foto com pontos: cada ponto mostra um serviço ---- */
+(function(){
+  const itens = {
+    iluminacao: { nome:'Iluminação', servico:'Iluminação', txt:'Refletores, feixes de luz e iluminação de ambiente para a festa ter clima depois que o sol se põe.', uso:'festas noturnas, áreas externas' },
+    tenda: { nome:'Tenda', servico:'Tendas', txt:'Cobertura que protege os convidados do sol e da chuva e ainda serve de base para a iluminação.', uso:'quintais, praia, áreas sem cobertura' },
+    som: { nome:'Som', servico:'Som', txt:'Caixas, mesa de som e técnico acompanhando o evento, do discurso de abertura à pista cheia.', uso:'confraternizações, festas com DJ ou banda' },
+    palco: { nome:'Palco', servico:'Palco', txt:'Palco no tamanho certo para banda, DJ, apresentações ou o momento da premiação da equipe.', uso:'shows, discursos, premiações' }
+  };
+  const conteudo = document.getElementById('explorarConteudo');
+  const pontos = document.querySelectorAll('.ponto');
+  pontos.forEach(p => p.addEventListener('click', () => {
+    const it = itens[p.dataset.ponto];
+    pontos.forEach(x => { x.classList.toggle('ativo', x === p); x.setAttribute('aria-pressed', x === p); });
+    conteudo.innerHTML = '<h3>' + it.nome + '</h3><p>' + it.txt + '</p><p class="uso"><b>Bom para</b>' + it.uso + '</p>' +
+      '<button type="button" class="btn" data-servico="' + it.servico + '"><span class="btn__txt" data-txt="Quero ' + it.nome.toLowerCase() + ' na minha festa">Quero ' + it.nome.toLowerCase() + ' na minha festa</span></button>';
+    conteudo.classList.remove('troca'); void conteudo.offsetWidth; conteudo.classList.add('troca');
+    if (matchMedia('(max-width: 860px)').matches) conteudo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    (window.dataLayer = window.dataLayer || []).push({ event:'ponto_estrutura', item: it.nome });
+  }));
+  conteudo.addEventListener('click', e => {
+    const b = e.target.closest('[data-servico]'); if (!b) return;
+    const chk = document.querySelector('[name=servicos][value="' + b.dataset.servico + '"]');
+    if (chk) chk.checked = true;
+    if (window.irPara) window.irPara('#orcamento'); else document.getElementById('orcamento').scrollIntoView({ behavior: 'smooth' });
+  });
+})();
 
 /* ---- Máscara simples de telefone ---- */
 const tel = document.getElementById('telefone');
